@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pochampally Ikat — Design Thinking Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+  /* ─── TOKENS ─────────────────────────────────────────────── */
+  :root {
+    --ochre:        #C8891F;
+    --ochre-light:  #E5A83A;
+    --terracotta:   #B5482A;
+    --terra-dark:   #7E2E16;
+    --cream:        #F5EDD8;
+    --cream-dark:   #EAD8B4;
+    --brown:        #3B1F0E;
+    --brown-mid:    #6B3A22;
+    --linen:        #FAF3E8;
+    --ink:          #2A1508;
+    --ikat-blue:    #2E4A6B;   /* accent — indigo dye */
+    --ikat-teal:    #3D7A6F;   /* accent — natural teal */
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'Crimson Pro', Georgia, serif;
+
+    --max-w: 1140px;
+    --section-pad: 96px 24px;
+    --radius: 6px;
+    --shadow: 0 4px 24px rgba(59,31,14,0.12);
+    --shadow-lg: 0 12px 48px rgba(59,31,14,0.18);
+  }
+
+  /* ─── RESET ──────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 17px; }
+  body {
+    font-family: var(--font-body);
+    background: var(--linen);
+    color: var(--ink);
+    line-height: 1.75;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+
+  /* ─── NAVBAR ─────────────────────────────────────────────── */
+  #navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: rgba(250,243,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--cream-dark);
+    transition: box-shadow .3s;
+  }
+  #navbar.scrolled { box-shadow: 0 2px 20px rgba(59,31,14,0.14); }
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+  }
+  .nav-brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--terracotta);
+    letter-spacing: .02em;
+    white-space: nowrap;
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--brown-mid);
+    padding: 5px 9px;
+    border-radius: var(--radius);
+    transition: background .2s, color .2s;
+  }
+  .nav-links a:hover { background: var(--ochre); color: #fff; }
+  .nav-toggle {
+    display: none;
+    background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--brown); border-radius: 2px;
+    transition: .3s;
+  }
+
+  /* ─── SECTION SHELL ──────────────────────────────────────── */
+  section { padding: var(--section-pad); }
+  section:nth-child(odd)  { background: var(--linen); }
+  section:nth-child(even) { background: var(--cream); }
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--font-body);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+  .divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--ochre), var(--terracotta));
+    border-radius: 2px;
+    margin-bottom: 36px;
+  }
+  p { margin-bottom: 1.1em; font-size: 1.05rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ─── IKAT BORDER DECORATION ─────────────────────────────── */
+  .ikat-border {
+    background: repeating-linear-gradient(
+      90deg,
+      var(--ochre) 0px, var(--ochre) 6px,
+      var(--terracotta) 6px, var(--terracotta) 12px,
+      var(--cream) 12px, var(--cream) 18px,
+      var(--ikat-teal) 18px, var(--ikat-teal) 24px,
+      var(--cream) 24px, var(--cream) 30px
+    );
+    height: 8px;
+    width: 100%;
+  }
+
+  /* ─── 1. HERO ────────────────────────────────────────────── */
+  #hero {
+    background: linear-gradient(160deg, var(--brown) 0%, var(--terra-dark) 55%, #4A1C0A 100%);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-ikat-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(ellipse 3px 18px at 50% 50%, rgba(200,137,31,.22) 0%, transparent 100%),
+      repeating-linear-gradient(45deg,
+        transparent 0px, transparent 28px,
+        rgba(200,137,31,.06) 28px, rgba(200,137,31,.06) 30px),
+      repeating-linear-gradient(-45deg,
+        transparent 0px, transparent 28px,
+        rgba(181,72,42,.06) 28px, rgba(181,72,42,.06) 30px);
+    pointer-events: none;
+  }
+  .hero-top-bar { height: 58px; } /* navbar space */
+  .hero-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 80px;
+    position: relative; z-index: 1;
+  }
+  .hero-kicker {
+    font-family: var(--font-body);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ochre-light);
+    margin-bottom: 22px;
+    border: 1px solid rgba(200,137,31,.4);
+    display: inline-block;
+    padding: 5px 18px;
+    border-radius: 30px;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 6vw, 4.4rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.1;
+    max-width: 860px;
+    margin-bottom: 18px;
+  }
+  .hero-title span { color: var(--ochre-light); }
+  .hero-tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+    color: rgba(245,237,216,.75);
+    max-width: 640px;
+    margin-bottom: 52px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: left;
+  }
+  .hero-meta-block {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--radius);
+    padding: 18px 28px;
+    min-width: 200px;
+  }
+  .hero-meta-block .meta-label {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ochre-light);
+    margin-bottom: 6px;
+  }
+  .hero-meta-block .meta-value {
+    font-family: var(--font-body);
+    font-size: .98rem;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+  .hero-bottom { height: 8px; }
+
+  /* ─── 2. USER PROFILE ────────────────────────────────────── */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .profile-card {
+    background: var(--brown);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 32px 28px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    position: sticky; top: 80px;
+  }
+  .profile-avatar {
+    width: 90px; height: 90px;
+    background: linear-gradient(135deg, var(--ochre), var(--terracotta));
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem;
+  }
+  .profile-name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .profile-role {
+    font-size: .82rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ochre-light);
+    margin-bottom: 22px;
+  }
+  .profile-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    font-size: .88rem;
+  }
+  .profile-stat:last-child { border-bottom: none; }
+  .profile-stat-key { color: rgba(245,237,216,.6); }
+  .profile-stat-val { font-weight: 600; color: var(--cream); text-align: right; }
+  .profile-detail h4 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 12px;
+    margin-top: 28px;
+  }
+  .profile-detail h4:first-child { margin-top: 0; }
+  .profile-detail p { font-size: 1rem; color: var(--brown-mid); }
+  .tag-list {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 10px;
+  }
+  .tag {
+    background: var(--cream-dark);
+    border: 1px solid var(--ochre);
+    color: var(--brown);
+    font-size: .78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: .03em;
+  }
+
+  /* ─── 3. CONTEXT ─────────────────────────────────────────── */
+  .context-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 12px;
+  }
+  .context-block {
+    background: var(--linen);
+    border-top: 3px solid var(--terracotta);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+  .context-block h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 12px;
+  }
+  .context-block p { font-size: .96rem; color: var(--brown-mid); }
+
+  /* ─── 4. EVIDENCE ────────────────────────────────────────── */
+  .method-pills {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 40px;
+  }
+  .method-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--brown);
+    color: var(--cream);
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-size: .86rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .method-pill .pill-icon { font-size: 1.1rem; }
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .finding-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 26px 22px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--ochre);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .finding-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .finding-card:nth-child(2) { border-color: var(--terracotta); }
+  .finding-card:nth-child(3) { border-color: var(--ikat-teal); }
+  .finding-card:nth-child(4) { border-color: var(--ikat-blue); }
+  .finding-card:nth-child(5) { border-color: var(--ochre); }
+  .finding-card:nth-child(6) { border-color: var(--terracotta); }
+  .finding-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--ochre);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .finding-card:nth-child(2) .finding-num { color: var(--terracotta); }
+  .finding-card:nth-child(3) .finding-num { color: var(--ikat-teal); }
+  .finding-card:nth-child(4) .finding-num { color: var(--ikat-blue); }
+  .finding-card h5 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 8px;
+  }
+  .finding-card p { font-size: .9rem; color: var(--brown-mid); margin: 0; }
+
+  /* ─── 5. PAIN POINTS ─────────────────────────────────────── */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 22px;
+  }
+  .pain-card {
+    background: linear-gradient(135deg, var(--terracotta) 0%, var(--terra-dark) 100%);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 30px 26px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .pain-card::before {
+    content: '';
+    position: absolute; top: -20px; right: -20px;
+    width: 80px; height: 80px;
+    background: rgba(255,255,255,.07);
+    border-radius: 50%;
+  }
+  .pain-card:nth-child(2n) {
+    background: linear-gradient(135deg, var(--brown) 0%, #1E0E05 100%);
+  }
+  .pain-number {
+    font-family: var(--font-display);
+    font-size: 3rem; font-weight: 900;
+    color: rgba(255,255,255,.15);
+    line-height: 1;
+    position: absolute; top: 14px; right: 20px;
+  }
+  .pain-icon { font-size: 1.6rem; margin-bottom: 12px; }
+  .pain-card h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .pain-card p { font-size: .9rem; opacity: .85; margin: 0; }
+  .pain-severity {
+    display: flex; gap: 4px;
+    margin-top: 14px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.3);
+  }
+  .dot.filled { background: var(--ochre-light); }
+
+  /* ─── 6. 5-WHYS ──────────────────────────────────────────── */
+  .whys-chain {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .why-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 0;
+  }
+  .why-connector {
+    display: flex; flex-direction: column; align-items: center;
+    flex-shrink: 0; width: 44px;
+  }
+  .why-dot {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--ochre);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 900; font-size: .9rem;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(200,137,31,.25);
+    z-index: 1;
+  }
+  .why-line {
+    flex: 1;
+    width: 2px;
+    background: linear-gradient(180deg, var(--ochre), var(--terracotta));
+    min-height: 36px;
+  }
+  .why-step:last-child .why-line { display: none; }
+  .why-content {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 18px 22px;
+    flex: 1;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+    border-right: 3px solid var(--ochre);
+  }
+  .why-step:last-child .why-content { border-color: var(--terracotta); background: var(--terracotta); color: var(--cream); }
+  .why-step:last-child .why-content h5 { color: var(--cream); }
+  .why-step:last-child .why-content p { color: rgba(245,237,216,.85); }
+  .why-content h5 {
+    font-family: var(--font-display);
+    font-size: 1rem; font-weight: 700;
+    color: var(--terracotta);
+    margin-bottom: 5px;
+  }
+  .why-step:nth-child(5) .why-dot { background: var(--terracotta); box-shadow: 0 0 0 4px rgba(181,72,42,.25); }
+  .why-content p { font-size: .92rem; color: var(--brown-mid); margin: 0; }
+
+  /* ─── 7. IMPACT & SCALE ──────────────────────────────────── */
+  #impact { background: var(--brown); color: var(--cream); }
+  #impact .section-label { color: var(--ochre-light); }
+  #impact .section-title { color: var(--cream); }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2px;
+    background: rgba(255,255,255,.08);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .stat-cell {
+    background: rgba(0,0,0,.2);
+    padding: 36px 28px;
+    text-align: center;
+    transition: background .2s;
+  }
+  .stat-cell:hover { background: rgba(200,137,31,.18); }
+  .stat-big {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 900;
+    color: var(--ochre-light);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(245,237,216,.65);
+    line-height: 1.4;
+  }
+  .impact-note {
+    margin-top: 32px;
+    padding: 22px 28px;
+    background: rgba(200,137,31,.15);
+    border-left: 4px solid var(--ochre);
+    border-radius: var(--radius);
+    font-size: .98rem;
+    color: rgba(245,237,216,.85);
+  }
+
+  /* ─── 8. POV STATEMENT ───────────────────────────────────── */
+  .pov-frame {
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 56px 40px;
+    background: linear-gradient(135deg, var(--brown) 0%, var(--terra-dark) 100%);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .pov-frame::before, .pov-frame::after {
+    content: '"';
+    font-family: var(--font-display);
+    font-size: 12rem; font-weight: 900;
+    color: rgba(200,137,31,.12);
+    position: absolute;
+    line-height: 1;
+  }
+  .pov-frame::before { top: -20px; left: 10px; }
+  .pov-frame::after  { bottom: -60px; right: 10px; }
+  .pov-kicker {
+    font-size: .75rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--ochre-light); margin-bottom: 22px;
+  }
+  .pov-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.55;
+    position: relative; z-index: 1;
+  }
+  .pov-user { color: var(--ochre-light); font-style: italic; }
+  .pov-need { color: #A5D8CC; font-style: italic; }
+  .pov-insight { color: #E8B4A0; font-style: italic; }
+
+  /* ─── 9. HMW ─────────────────────────────────────────────── */
+  .hmw-list { display: flex; flex-direction: column; gap: 18px; }
+  .hmw-item {
+    display: flex; gap: 20px; align-items: flex-start;
+    background: var(--cream-dark);
+    border-radius: 10px;
+    padding: 24px 28px;
+    border-left: 5px solid var(--ochre);
+    box-shadow: var(--shadow);
+    transition: transform .2s;
+  }
+  .hmw-item:hover { transform: translateX(6px); }
+  .hmw-item:nth-child(2) { border-color: var(--terracotta); }
+  .hmw-item:nth-child(3) { border-color: var(--ikat-teal); }
+  .hmw-badge {
+    font-family: var(--font-display);
+    font-size: .75rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: #fff;
+    background: var(--ochre);
+    border-radius: 4px;
+    padding: 4px 10px;
+    white-space: nowrap;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+  .hmw-item:nth-child(2) .hmw-badge { background: var(--terracotta); }
+  .hmw-item:nth-child(3) .hmw-badge { background: var(--ikat-teal); }
+  .hmw-item p {
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--brown);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* ─── 10. REFRAME ────────────────────────────────────────── */
+  .reframe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .reframe-card {
+    border-radius: 10px;
+    padding: 26px 24px;
+    box-shadow: var(--shadow);
+  }
+  .reframe-card.old {
+    background: var(--cream-dark);
+    border: 2px dashed rgba(107,58,34,.3);
+  }
+  .reframe-card.new {
+    background: linear-gradient(135deg, var(--ikat-teal), #2A6B61);
+    color: var(--cream);
+  }
+  .reframe-card .rc-label {
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .15em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .reframe-card.old .rc-label { color: var(--terracotta); }
+  .reframe-card.new .rc-label { color: rgba(245,237,216,.7); }
+  .reframe-card h4 {
+    font-family: var(--font-display);
+    font-size: 1.05rem; font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .reframe-card.old h4 { color: var(--brown-mid); }
+  .reframe-card.new h4 { color: var(--cream); }
+  .reframe-card p { font-size: .92rem; margin: 0; }
+  .reframe-card.old p { color: var(--brown-mid); }
+  .reframe-card.new p { color: rgba(245,237,216,.82); }
+
+  /* ─── 11. PROBLEM STATEMENT ──────────────────────────────── */
+  .problem-frame {
+    background: var(--brown);
+    border-radius: 16px;
+    padding: 56px 48px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .problem-frame::before {
+    content: 'PROBLEM STATEMENT';
+    position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+    font-size: .68rem; font-weight: 700;
+    letter-spacing: .24em;
+    color: var(--ochre-light);
+  }
+  .problem-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.45;
+    margin-top: 14px;
+  }
+  .problem-text mark {
+    background: none;
+    color: var(--ochre-light);
+    border-bottom: 2px solid var(--ochre-light);
+  }
+
+  /* ─── 12. IDEATION ───────────────────────────────────────── */
+  .ideation-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .ideation-col h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 14px;
+  }
+  .concept-list { display: flex; flex-direction: column; gap: 10px; }
+  .concept-item {
+    display: flex; gap: 12px; align-items: center;
+    background: var(--cream-dark);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: .92rem; color: var(--brown-mid);
+  }
+  .concept-item .ci-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .selected-concept {
+    background: linear-gradient(135deg, var(--ochre), var(--terracotta));
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 28px 24px;
+    box-shadow: var(--shadow-lg);
+  }
+  .selected-concept .sc-badge {
+    background: rgba(255,255,255,.2);
+    display: inline-block;
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .selected-concept h4 {
+    font-family: var(--font-display);
+    font-size: 1.2rem; font-weight: 700;
+    color: #fff; margin-bottom: 10px;
+  }
+  .selected-concept p { font-size: .92rem; opacity: .9; margin: 0; }
+
+  /* ─── 13. TESTING PLAN ───────────────────────────────────── */
+  .testing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+  }
+  .test-card {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 24px 22px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--ikat-blue);
+  }
+  .test-card:nth-child(2n) { border-color: var(--ikat-teal); }
+  .test-card:nth-child(3n) { border-color: var(--ochre); }
+  .test-card .tc-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .test-card h5 {
+    font-family: var(--font-display);
+    font-size: 1rem; font-weight: 700;
+    color: var(--brown); margin-bottom: 8px;
+  }
+  .test-card p { font-size: .88rem; color: var(--brown-mid); margin: 0; }
+
+  /* ─── 14. WEEKLY DOCS ────────────────────────────────────── */
+  .weeks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 22px;
+  }
+  .week-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .week-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .week-header {
+    background: linear-gradient(135deg, var(--brown), var(--brown-mid));
+    padding: 18px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .week-card:nth-child(2) .week-header { background: linear-gradient(135deg, var(--terracotta), var(--terra-dark)); }
+  .week-card:nth-child(3) .week-header { background: linear-gradient(135deg, var(--ikat-blue), #1E3454); }
+  .week-card:nth-child(4) .week-header { background: linear-gradient(135deg, var(--ikat-teal), #2A5A52); }
+  .week-card:nth-child(5) .week-header { background: linear-gradient(135deg, var(--ochre), #A07018); }
+  .week-card:nth-child(6) .week-header { background: linear-gradient(135deg, var(--brown-mid), var(--terra-dark)); }
+  .week-card:nth-child(7) .week-header { background: linear-gradient(135deg, #5A3E6B, #3A2248); }
+  .week-card:nth-child(8) .week-header { background: linear-gradient(135deg, var(--terracotta), var(--ochre)); }
+  .week-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem; font-weight: 900;
+    color: rgba(255,255,255,.25);
+  }
+  .week-title-block {}
+  .week-title-block h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem; font-weight: 700;
+    color: #fff;
+  }
+  .week-date {
+    font-size: .75rem; font-weight: 600;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.6);
+    margin-top: 2px;
+  }
+  .week-body { padding: 22px; }
+  .week-section-head {
+    font-size: .68rem; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 7px; margin-top: 16px;
+  }
+  .week-section-head:first-child { margin-top: 0; }
+  .week-body p { font-size: .9rem; color: var(--brown-mid); margin: 0; }
+
+  /* ─── 15. FOOTER ─────────────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 56px 24px 40px;
+    text-align: center;
+  }
+  .footer-inner { max-width: var(--max-w); margin: 0 auto; }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem; font-weight: 900;
+    color: var(--ochre-light);
+    margin-bottom: 8px;
+  }
+  .footer-subtitle {
+    font-size: .88rem;
+    color: rgba(245,237,216,.55);
+    letter-spacing: .06em;
+    margin-bottom: 32px;
+  }
+  .footer-team {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .footer-member {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 30px;
+    padding: 6px 18px;
+    font-size: .85rem;
+    color: var(--cream-dark);
+  }
+  .footer-divider {
+    width: 40px; height: 2px;
+    background: var(--ochre);
+    margin: 0 auto 22px;
+    border-radius: 1px;
+  }
+  .footer-meta { font-size: .82rem; color: rgba(245,237,216,.4); }
+  .footer-meta span { color: rgba(245,237,216,.6); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    :root { --section-pad: 64px 20px; }
+    .profile-grid { grid-template-columns: 1fr; }
+    .profile-card { position: static; }
+    .context-cols { grid-template-columns: 1fr; }
+    .ideation-cols { grid-template-columns: 1fr; }
+    .reframe-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .nav-links { display: none; flex-direction: column; gap: 2px; position: absolute; top: 58px; left: 0; right: 0; background: var(--linen); border-bottom: 1px solid var(--cream-dark); padding: 10px 16px; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: flex; }
+    .hero-meta { flex-direction: column; align-items: center; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .pov-frame { padding: 36px 22px; }
+  }
+
+  /* ─── SCROLL ANIMATION UTILITY ───────────────────────────── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ░░░ IKAT DECORATIVE BORDER ░░░ -->
+<div class="ikat-border" style="position:fixed;top:0;left:0;right:0;z-index:1000;opacity:.7;height:4px;"></div>
+
+<!-- ░░░ NAVBAR ░░░ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">Pochampally Ikat</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#user">User</a></li>
+      <li><a href="#context">Context</a></li>
+      <li><a href="#evidence">Evidence</a></li>
+      <li><a href="#painpoints">Pain Points</a></li>
+      <li><a href="#whys">5 Whys</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#pov">POV</a></li>
+      <li><a href="#hmw">HMW</a></li>
+      <li><a href="#reframe">Reframe</a></li>
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#ideation">Ideation</a></li>
+      <li><a href="#testing">Testing</a></li>
+      <li><a href="#weekly">Weekly</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 1. HERO                              -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="hero">
+  <div class="hero-top-bar"></div>
+  <div class="hero-ikat-pattern"></div>
+  <div class="hero-body">
+    <div class="hero-kicker">Design Thinking Project · [COURSE CODE]</div>
+    <h1 class="hero-title">
+      Impact of <span>Power Loom Products</span> on Authentic Handloom
+      Pochampally Ikat Artisans
+    </h1>
+    <p class="hero-tagline">[TAGLINE — e.g. "Unravelling the threads of a dying craft — and reimagining its future"]</p>
+    <div class="hero-meta">
+      <div class="hero-meta-block">
+        <div class="meta-label">Team Members</div>
+        <div class="meta-value">
+          [TEAM MEMBER 1]<br>
+          [TEAM MEMBER 2]<br>
+          [TEAM MEMBER 3]<br>
+          [TEAM MEMBER 4]
+        </div>
+      </div>
+      <div class="hero-meta-block">
+        <div class="meta-label">Course</div>
+        <div class="meta-value">[COURSE NAME &amp; CODE]</div>
+        <div class="meta-label" style="margin-top:12px">Institution</div>
+        <div class="meta-value">[COLLEGE / UNIVERSITY NAME]</div>
+      </div>
+      <div class="hero-meta-block">
+        <div class="meta-label">Academic Year</div>
+        <div class="meta-value">[YEAR — e.g. 2024–25]</div>
+        <div class="meta-label" style="margin-top:12px">Faculty Guide</div>
+        <div class="meta-value">[FACULTY GUIDE NAME]</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bottom"></div>
+  <div class="ikat-border"></div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 2. USER / PROTAGONIST                -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="user">
+  <div class="container">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">Our User &amp; <em>Protagonist</em></h2>
+    <div class="divider"></div>
+    <div class="profile-grid fade-up">
+      <!-- PROFILE CARD -->
+      <div class="profile-card">
+        <div class="profile-avatar">🧵</div>
+        <div class="profile-name">[ARTISAN NAME / PERSONA NAME]</div>
+        <div class="profile-role">Pochampally Ikat Weaver</div>
+        <div class="profile-stat"><span class="profile-stat-key">Age Range</span><span class="profile-stat-val">[e.g. 35–55 years]</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">Location</span><span class="profile-stat-val">[e.g. Bhoodan Pochampally, Telangana]</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">Experience</span><span class="profile-stat-val">[e.g. 15+ years]</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">Household Income</span><span class="profile-stat-val">[e.g. ₹5,000–₹8,000/month]</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">Education</span><span class="profile-stat-val">[e.g. Secondary school]</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">Family</span><span class="profile-stat-val">[e.g. Spouse + 2 children]</span></div>
+      </div>
+      <!-- PROFILE DETAIL -->
+      <div class="profile-detail">
+        <h4>Background &amp; Story</h4>
+        <p>[Describe the artisan's background here — their family's weaving history, how they learned the craft, and their daily routine. 2–3 sentences. E.g. "Ramaiah learned the art of Ikat from his father at age 12 in the weaving village of Pochampally. He dedicates 10–12 hours a day to the resist-dyeing and handloom weaving process..."]</p>
+
+        <h4>Goals &amp; Aspirations</h4>
+        <p>[What does the artisan want to achieve? E.g. "Ramaiah hopes to earn a fair price for his work, educate his children, and pass down the traditional craft to the next generation without being undercut by cheaper machine-made imitations."]</p>
+
+        <h4>Skills &amp; Expertise</h4>
+        <div class="tag-list">
+          <span class="tag">[Skill — e.g. Resist Dyeing]</span>
+          <span class="tag">[Skill — e.g. Warp Ikat]</span>
+          <span class="tag">[Skill — e.g. Weft Ikat]</span>
+          <span class="tag">[Skill — e.g. Double Ikat]</span>
+          <span class="tag">[Skill — e.g. Natural Dyes]</span>
+          <span class="tag">[Skill — e.g. Pattern Design]</span>
+        </div>
+
+        <h4 style="margin-top:24px">Typical Day</h4>
+        <p>[Describe a typical working day. E.g. "Starts at 6 AM pre-soaking yarns, spends 4–5 hours tying resist patterns by hand, 3–4 hours weaving on the pit loom, and ends the day negotiating with middlemen or visiting the local market..."]</p>
+
+        <h4>Frustrations (in their own words)</h4>
+        <p style="font-style:italic; color:var(--terracotta);">"[A direct quote or paraphrase from the artisan expressing their frustration — e.g. 'Customers can't tell the difference between my handmade saree and a machine copy that costs one-third the price. How do I justify my 20 days of work?']"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 3. CONTEXT & SITUATION               -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="context">
+  <div class="container">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">Context &amp; <em>Situation</em></h2>
+    <div class="divider"></div>
+    <div class="context-cols fade-up">
+      <div class="context-block">
+        <h4>The Heritage</h4>
+        <p>[Paragraph 1 — Describe Pochampally Ikat's cultural and historical significance. E.g. "Pochampally Ikat, recognised with a Geographical Indication (GI) tag since 2004, is one of India's most prestigious handloom traditions. The village of Bhoodan Pochampally in Telangana is globally renowned for its intricate resist-dyeing technique called Ikat, where both yarn and pattern must be pre-planned weeks before weaving begins..."]</p>
+      </div>
+      <div class="context-block">
+        <h4>The Disruption</h4>
+        <p>[Paragraph 2 — Describe how power loom products are disrupting the market. E.g. "In recent decades, power loom manufacturers in Surat, Ahmedabad, and Bengaluru have begun mass-producing Ikat-printed or machine-woven textiles that visually mimic authentic Pochampally Ikat at a fraction of the cost. These products flood online and offline markets, making it nearly impossible for consumers to distinguish genuine handloom from imitation..."]</p>
+      </div>
+      <div class="context-block">
+        <h4>The Current Crisis</h4>
+        <p>[Paragraph 3 — Describe the current state of the weaving community. E.g. "According to the Office of the Development Commissioner (Handlooms), handloom weaver households have declined by over 30% in the past two decades. Artisans report shrinking profit margins, delayed payments from middlemen, and increasing pressure to migrate to urban centres for non-traditional employment. The younger generation is rapidly abandoning the craft..."]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 4. EVIDENCE BASE                     -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="evidence">
+  <div class="container">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Evidence <em>Base</em></h2>
+    <div class="divider"></div>
+
+    <div class="method-pills fade-up">
+      <div class="method-pill"><span class="pill-icon">🗣️</span>[METHOD — e.g. In-depth Interviews (n=[X])]</div>
+      <div class="method-pill"><span class="pill-icon">📋</span>[METHOD — e.g. Structured Survey (n=[X])]</div>
+      <div class="method-pill"><span class="pill-icon">👁️</span>[METHOD — e.g. Field Observations ([X] visits)]</div>
+      <div class="method-pill"><span class="pill-icon">📖</span>[METHOD — e.g. Secondary Research / Literature Review]</div>
+      <div class="method-pill"><span class="pill-icon">🛒</span>[METHOD — e.g. Market Audit ([X] retail sites)]</div>
+    </div>
+
+    <div class="findings-grid fade-up">
+      <div class="finding-card">
+        <div class="finding-num">[00%]</div>
+        <h5>[KEY FINDING 1 TITLE — e.g. Artisans Cannot Identify Buyers]</h5>
+        <p>[Brief description of the finding. E.g. "Of the artisans interviewed, [X]% reported having no direct access to end consumers — all sales go through middlemen."]</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">[₹000]</div>
+        <h5>[KEY FINDING 2 TITLE — e.g. Price Undercut by Power Looms]</h5>
+        <p>[E.g. "Average price of a handloom Pochampally saree: ₹[X,XXX]. Machine equivalent sold at ₹[XXX] — a [X]% undercut."]</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">[00+]</div>
+        <h5>[KEY FINDING 3 TITLE — e.g. Days per Saree]</h5>
+        <p>[E.g. "A single handloom double-Ikat saree takes [X]–[X] days of skilled labour; a power-loom version takes [X] hours."]</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">[00%]</div>
+        <h5>[KEY FINDING 4 TITLE — e.g. Youth Abandoning the Craft]</h5>
+        <p>[E.g. "[X]% of weavers under 35 reported they do not intend to continue weaving as a primary livelihood."]</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">[00%]</div>
+        <h5>[KEY FINDING 5 TITLE — e.g. Consumer Awareness Gap]</h5>
+        <p>[E.g. "[X]% of surveyed consumers could not distinguish a GI-tagged handloom saree from a machine print."]</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">[00%]</div>
+        <h5>[KEY FINDING 6 TITLE — e.g. No Digital Presence]</h5>
+        <p>[E.g. "[X]% of artisans have no social media or e-commerce presence. [X]% have never sold directly online."]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 5. PAIN POINTS & NEEDS               -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="painpoints">
+  <div class="container">
+    <div class="section-label">Section 05</div>
+    <h2 class="section-title">Pain Points <em>&amp; Needs</em></h2>
+    <div class="divider"></div>
+    <div class="pain-grid fade-up">
+
+      <div class="pain-card">
+        <div class="pain-number">01</div>
+        <div class="pain-icon">💸</div>
+        <h4>[PAIN POINT 1 — e.g. Severe Income Erosion]</h4>
+        <p>[Describe the pain point. E.g. "Power loom products undercut handloom prices by [X]–[X]%, forcing artisans to either lower prices below sustainable margins or lose customers entirely."]</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div>
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-number">02</div>
+        <div class="pain-icon">🔍</div>
+        <h4>[PAIN POINT 2 — e.g. No Authentication or Traceability]</h4>
+        <p>[E.g. "Despite having a GI tag, most handloom sarees lack on-product authentication. Consumers have no easy way to verify authenticity at the point of purchase."]</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div>
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-number">03</div>
+        <div class="pain-icon">🧑‍💼</div>
+        <h4>[PAIN POINT 3 — e.g. Middlemen Capturing Most of the Value]</h4>
+        <p>[E.g. "Artisans receive only [X]–[X]% of the final retail price. Middlemen, agents, and traders capture the bulk of margins while artisans bear all the production risk."]</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div>
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-number">04</div>
+        <div class="pain-icon">📉</div>
+        <h4>[PAIN POINT 4 — e.g. Generational Knowledge Loss]</h4>
+        <p>[E.g. "With younger generations leaving the craft due to poor economic returns, the highly specialised Double Ikat technique risks being lost within a generation. There are no formal preservation mechanisms."]</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div>
+          <div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-number">05</div>
+        <div class="pain-icon">🌐</div>
+        <h4>[PAIN POINT 5 — e.g. Digital Exclusion &amp; Market Access]</h4>
+        <p>[E.g. "Artisans lack digital literacy, smartphones, and capital to list on e-commerce platforms. Even when they attempt to sell online, lack of product photography and copywriting skills limits visibility."]</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div>
+          <div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 6. ROOT CAUSES — 5 WHYS              -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="whys">
+  <div class="container">
+    <div class="section-label">Section 06</div>
+    <h2 class="section-title">Root Cause Analysis — <em>5 Whys</em></h2>
+    <div class="divider"></div>
+
+    <div style="text-align:center; margin-bottom:40px;">
+      <div style="display:inline-block; background:var(--terracotta); color:#fff; border-radius:8px; padding:14px 28px; font-family:var(--font-display); font-weight:700; font-size:1.05rem; max-width:600px;">
+        Problem: [STATE THE INITIAL PROBLEM — e.g. "Handloom Pochampally Ikat artisans are experiencing a rapid decline in income and market share."]
+      </div>
+    </div>
+
+    <div class="whys-chain fade-up">
+
+      <div class="why-step">
+        <div class="why-connector">
+          <div class="why-dot">W1</div>
+          <div class="why-line"></div>
+        </div>
+        <div class="why-content">
+          <h5>Why #1 — [e.g. Why are artisans losing income?]</h5>
+          <p>[Answer — e.g. "Because cheaper power loom products that visually resemble authentic Ikat are flooding the market at [X]% lower prices."]</p>
+        </div>
+      </div>
+
+      <div class="why-step">
+        <div class="why-connector">
+          <div class="why-dot">W2</div>
+          <div class="why-line"></div>
+        </div>
+        <div class="why-content">
+          <h5>Why #2 — [e.g. Why are consumers buying cheaper imitations?]</h5>
+          <p>[Answer — e.g. "Because consumers cannot distinguish handloom Ikat from power loom imitations — there is no visible, trusted authentication at the point of sale."]</p>
+        </div>
+      </div>
+
+      <div class="why-step">
+        <div class="why-connector">
+          <div class="why-dot">W3</div>
+          <div class="why-line"></div>
+        </div>
+        <div class="why-content">
+          <h5>Why #3 — [e.g. Why is there no visible authentication?]</h5>
+          <p>[Answer — e.g. "Because the existing GI tag system is not implemented at the product level in a consumer-friendly way, and awareness campaigns have not reached end buyers."]</p>
+        </div>
+      </div>
+
+      <div class="why-step">
+        <div class="why-connector">
+          <div class="why-dot">W4</div>
+          <div class="why-line"></div>
+        </div>
+        <div class="why-content">
+          <h5>Why #4 — [e.g. Why hasn't the GI system been implemented effectively?]</h5>
+          <p>[Answer — e.g. "Because artisans lack digital tools, resources, and institutional support to apply and display GI certification; the process is bureaucratic and the cost is prohibitive for individual weavers."]</p>
+        </div>
+      </div>
+
+      <div class="why-step">
+        <div class="why-connector">
+          <div class="why-dot" style="background:var(--terracotta);">W5</div>
+          <div class="why-line"></div>
+        </div>
+        <div class="why-content">
+          <h5>Why #5 (Root Cause) — [e.g. Why do artisans lack access to institutional support?]</h5>
+          <p>[Root Cause — e.g. "Because policy frameworks, cooperative structures, and digital intermediaries are not designed around the actual daily constraints of rural handloom weavers — they are designed for scale and administration, not for individual craft preservation."]</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 7. IMPACT & SCALE                    -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="impact">
+  <div class="container">
+    <div class="section-label">Section 07</div>
+    <h2 class="section-title">Impact &amp; <em>Scale</em></h2>
+    <div class="divider" style="background:linear-gradient(90deg, var(--ochre-light), var(--cream));"></div>
+
+    <div class="stats-grid fade-up">
+      <div class="stat-cell">
+        <div class="stat-big">[X,XXX]</div>
+        <div class="stat-label">[e.g. Weaver Households in Pochampally Region]</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">[XX%]</div>
+        <div class="stat-label">[e.g. Decline in Active Weavers Over 20 Years]</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">₹[XX]Cr</div>
+        <div class="stat-label">[e.g. Annual Revenue Lost to Power Loom Imitations]</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">[XX]</div>
+        <div class="stat-label">[e.g. Days to Weave One Authentic Double Ikat Saree]</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">[X]%</div>
+        <div class="stat-label">[e.g. Share of Retail Price Received by Artisan]</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">[X in X]</div>
+        <div class="stat-label">[e.g. Young Weavers Planning to Continue the Craft]</div>
+      </div>
+    </div>
+
+    <div class="impact-note fade-up">
+      <strong>[CONTEXTUAL NOTE]</strong> — [E.g. "If current trends continue, researchers estimate that authentic handloom Pochampally Ikat could effectively cease to exist as a viable livelihood within [X]–[X] years, making it one of the most urgent heritage preservation challenges in South India."]
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 8. POINT OF VIEW STATEMENT           -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="pov">
+  <div class="container">
+    <div class="section-label">Section 08</div>
+    <h2 class="section-title" style="text-align:center">Point of <em>View Statement</em></h2>
+    <div class="divider" style="margin:0 auto 40px;"></div>
+
+    <div class="pov-frame fade-up">
+      <div class="pov-kicker">Our POV Statement</div>
+      <div class="pov-text">
+        <span class="pov-user">[USER — e.g. A skilled Pochampally Ikat handloom weaver]</span>
+        &nbsp;needs&nbsp;
+        <span class="pov-need">[NEED — e.g. a credible, consumer-visible way to authenticate and differentiate their handloom product from power loom imitations]</span>
+        &nbsp;because&nbsp;
+        <span class="pov-insight">[INSIGHT — e.g. without consumer trust and market transparency, the price premium that makes the craft economically viable — and therefore culturally survivable — simply cannot be sustained]</span>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 9. HOW MIGHT WE QUESTIONS            -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="hmw">
+  <div class="container">
+    <div class="section-label">Section 09</div>
+    <h2 class="section-title">How Might <em>We…</em></h2>
+    <div class="divider"></div>
+
+    <div class="hmw-list fade-up">
+      <div class="hmw-item">
+        <div class="hmw-badge">HMW 1</div>
+        <p>[HMW QUESTION 1 — e.g. "How might we make it effortless for consumers to verify the authenticity of a Pochampally Ikat product at the point of purchase — both online and offline?"]</p>
+      </div>
+      <div class="hmw-item">
+        <div class="hmw-badge">HMW 2</div>
+        <p>[HMW QUESTION 2 — e.g. "How might we help artisans capture a greater share of the retail price by reducing their dependence on exploitative middlemen without disrupting their existing workflow?"]</p>
+      </div>
+      <div class="hmw-item">
+        <div class="hmw-badge">HMW 3</div>
+        <p>[HMW QUESTION 3 — e.g. "How might we make the craft economically attractive enough for the next generation of weavers to choose handloom as a viable, dignified livelihood?"]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 10. REFRAME CHECK                    -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="reframe">
+  <div class="container">
+    <div class="section-label">Section 10</div>
+    <h2 class="section-title">Reframe <em>Check</em></h2>
+    <div class="divider"></div>
+    <p style="margin-bottom:28px; color:var(--brown-mid);">[Introductory note — e.g. "Before finalising our problem statement, we challenged our assumptions and looked at alternative framings of the issue."]</p>
+
+    <div class="reframe-grid fade-up">
+      <div class="reframe-card old">
+        <div class="rc-label">Conventional Frame</div>
+        <h4>[CONVENTIONAL FRAME 1 — e.g. "Power looms are the villain; handlooms are the victim."]</h4>
+        <p>[Why this frame is limiting — e.g. "This adversarial framing ignores that power loom operators are also small entrepreneurs responding to market demand. Blaming one group rarely yields systemic solutions."]</p>
+      </div>
+      <div class="reframe-card new">
+        <div class="rc-label">Reframed Perspective</div>
+        <h4>[REFRAME 1 — e.g. "The real problem is a broken information market — consumers can't price authenticity."]</h4>
+        <p>[Why this reframe is richer — e.g. "If buyers could easily identify and trust authentic Ikat, they might willingly pay a premium — making coexistence with power looms possible without requiring regulation or conflict."]</p>
+      </div>
+
+      <div class="reframe-card old">
+        <div class="rc-label">Conventional Frame</div>
+        <h4>[CONVENTIONAL FRAME 2 — e.g. "Artisans need government subsidies and protection."]</h4>
+        <p>[Why this is limiting — e.g. "Subsidy dependence rarely creates sustainable change. Artisans themselves have identified dignity, fair prices, and direct market access as their priority — not charity."]</p>
+      </div>
+      <div class="reframe-card new">
+        <div class="rc-label">Reframed Perspective</div>
+        <h4>[REFRAME 2 — e.g. "Artisans need market infrastructure — tools to sell their story, not just their product."]</h4>
+        <p>[E.g. "The craft's narrative — the [X] days, the resist-dyeing process, the family lineage — is the product's most valuable differentiator. Enabling artisans to communicate this story directly to buyers is the leverage point."]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 11. FINAL PROBLEM STATEMENT         -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="problem">
+  <div class="container">
+    <div class="section-label">Section 11</div>
+    <h2 class="section-title" style="text-align:center;">Final <em>Problem Statement</em></h2>
+    <div class="divider" style="margin:0 auto 40px;"></div>
+
+    <div class="problem-frame fade-up">
+      <div class="problem-text">
+        [FINAL PROBLEM STATEMENT — e.g. "Pochampally Ikat handloom artisans are losing their economic viability and cultural relevance because <mark>consumers cannot identify or value authentic handloom products</mark> in a market flooded with visually similar power loom imitations — and without this recognition, <mark>no price premium, no craft continuity, and no generational transfer is possible</mark>."]
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 12. IDEATION & CONCEPTS              -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="ideation">
+  <div class="container">
+    <div class="section-label">Section 12</div>
+    <h2 class="section-title">Ideation &amp; <em>Concepts</em></h2>
+    <div class="divider"></div>
+
+    <div class="ideation-cols fade-up">
+      <div class="ideation-col">
+        <h4>💡 Concepts Explored in Brainstorming</h4>
+        <div class="concept-list">
+          <div class="concept-item"><span class="ci-icon">📱</span>[CONCEPT 1 — e.g. QR code woven into the saree border linking to artisan profile &amp; process video]</div>
+          <div class="concept-item"><span class="ci-icon">🏅</span>[CONCEPT 2 — e.g. Physical GI-certified tamper-proof label with holograms]</div>
+          <div class="concept-item"><span class="ci-icon">🧑‍🤝‍🧑</span>[CONCEPT 3 — e.g. Artisan-run cooperative e-commerce platform]</div>
+          <div class="concept-item"><span class="ci-icon">🎓</span>[CONCEPT 4 — e.g. Consumer education campaign with in-store Ikat identification guide]</div>
+          <div class="concept-item"><span class="ci-icon">🔗</span>[CONCEPT 5 — e.g. Blockchain traceability ledger from yarn dyeing to final weave]</div>
+          <div class="concept-item"><span class="ci-icon">📦</span>[CONCEPT 6 — e.g. Subscription "craft box" with artisan story, process samples, and finished product]</div>
+          <div class="concept-item"><span class="ci-icon">🎨</span>[CONCEPT 7 — e.g. Premium "design studio" model — let buyers co-create patterns with artisans]</div>
+          <div class="concept-item"><span class="ci-icon">🗺️</span>[CONCEPT 8 — e.g. Pochampally heritage tourism integration — visit, learn, buy direct]</div>
+        </div>
+      </div>
+
+      <div class="ideation-col">
+        <h4>✅ Selected Concept Moving to Prototype</h4>
+        <div class="selected-concept">
+          <div class="sc-badge">Selected Concept</div>
+          <h4>[SELECTED CONCEPT NAME — e.g. "Ikat Identity: A QR-Linked Artisan Authentication System"]</h4>
+          <p>[Describe the concept in 3–4 sentences. E.g. "A lightweight system where each handloom saree is tagged with a scannable QR code — woven or attached at point of completion — that links to a digital artisan passport showing the weaver's name, village, weaving process timeline, and GI certification status. The consumer scans at purchase and sees exactly who made it and how. A simple dashboard lets artisans update their profile via WhatsApp, eliminating the need for smartphones or digital literacy."]</p>
+        </div>
+
+        <div style="margin-top:22px; background:var(--cream-dark); border-radius:10px; padding:22px; box-shadow:var(--shadow);">
+          <h4 style="font-family:var(--font-display); font-size:1rem; font-weight:700; color:var(--brown); margin-bottom:10px;">Why This Concept?</h4>
+          <p style="font-size:.9rem; color:var(--brown-mid);">[Rationale for selection — e.g. "This concept directly addresses the root cause identified in the 5-Whys analysis: the information asymmetry between artisans and consumers. It is low-cost, scalable, compatible with existing sales channels, and does not require artisans to change their production process."]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 13. TESTING PLAN                     -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="testing">
+  <div class="container">
+    <div class="section-label">Section 13</div>
+    <h2 class="section-title">Testing <em>Plan</em></h2>
+    <div class="divider"></div>
+    <p style="margin-bottom:32px; color:var(--brown-mid);">[Brief intro — e.g. "We will test the prototype with both artisans and consumers across [X] rounds of feedback, following a structured plan:"]</p>
+
+    <div class="testing-grid fade-up">
+      <div class="test-card">
+        <div class="tc-icon">🧪</div>
+        <h5>[TEST TYPE 1 — e.g. Concept Walkthrough with Artisans]</h5>
+        <p>[e.g. "We will present the paper prototype of the QR tag + WhatsApp update flow to [X] artisans in Pochampally. We will measure ease of understanding, willingness to adopt, and trust."]</p>
+      </div>
+      <div class="test-card">
+        <div class="tc-icon">🛍️</div>
+        <h5>[TEST TYPE 2 — e.g. Consumer Scan Simulation]</h5>
+        <p>[e.g. "We will conduct a simulated in-store test with [X] consumers. They will be shown two sarees — one with QR authentication, one without — and asked about perceived value and purchase intent."]</p>
+      </div>
+      <div class="test-card">
+        <div class="tc-icon">📊</div>
+        <h5>[TEST TYPE 3 — e.g. Usability Testing of Digital Prototype]</h5>
+        <p>[e.g. "We will create a clickable Figma prototype of the consumer-facing QR landing page and test with [X] users using a think-aloud protocol. Measuring: task completion, comprehension, and trust."]</p>
+      </div>
+      <div class="test-card">
+        <div class="tc-icon">🔁</div>
+        <h5>[TEST TYPE 4 — e.g. Iteration Rounds]</h5>
+        <p>[e.g. "Based on feedback from Rounds 1–2, we will iterate the prototype and conduct a second round of testing in Week [X]. Key changes will be documented and justified."]</p>
+      </div>
+      <div class="test-card">
+        <div class="tc-icon">📏</div>
+        <h5>[SUCCESS METRICS — e.g. Key Metrics We Will Track]</h5>
+        <p>[e.g. "[X]% of artisans can complete the profile update without assistance. [X]% of consumers say the QR scan increases their willingness to pay the premium price. [X]+ qualitative insights per round."]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 14. WEEKLY DOCUMENTATION            -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section id="weekly">
+  <div class="container">
+    <div class="section-label">Section 14</div>
+    <h2 class="section-title">Weekly <em>Documentation</em></h2>
+    <div class="divider"></div>
+
+    <div class="weeks-grid fade-up">
+
+      <!-- WEEK 1 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-title-block">
+            <h3>Week 1 — Introduction &amp; Orientation</h3>
+            <div class="week-date">[DATE RANGE — e.g. DD Mon – DD Mon YYYY]</div>
+          </div>
+          <div class="week-num">01</div>
+        </div>
+        <div class="week-body">
+          <div class="week-section-head">What We Did</div>
+          <p>[e.g. "Received project brief, formed team, assigned roles, and conducted an initial desk research session on Pochampally Ikat and the handloom sector."]</p>
+          <div class="week-section-head">What We Learned</div>
+          <p>[e.g. "Discovered the GI tag was awarded in 2004 but enforcement and consumer awareness remains very low. Identified Pochampally village as primary field site."]</p>
+        </div>
+      </div>
+
+      <!-- WEEK 2 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-title-block">
+            <h3>Week 2 — Field Preparation &amp; User Research Design</h3>
+            <div class="week-date">[DATE RANGE]</div>
+          </div>
+          <div class="week-num">02</div>
+        </div>
+        <div class="week-body">
+          <div class="week-section-head">What We Did</div>
+          <p>[e.g. "Designed interview guide (20 open-ended questions), survey instrument ([X] items), and observation checklist. Conducted pilot interview with one team member's contact."]</p>
+          <div class="week-section-head">What We Learned</div>
+          <p>[e.g. "Realised our initial questions were too leading — revised to more neutral phrasing. Added questions on the middlemen relationship after the pilot."]</p>
+        </div>
+      </div>
+
+      <!-- WEEK 3 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-title-block">
+            <h3>Week 3 — Field Research Visit</h3>
+            <div class="week-date">[DATE RANGE]</div>
+          </div>
+          <div class="week-num">03</div>
+        </div>
+        <div class="week-body">
+          <div class="week-section-head">What We Did</div>
+          <p>[e.g. "Visited Pochampally village — interviewed [X] artisans, observed [X] working looms, conducted [X] consumer intercept surveys at a local textile market in Hyderabad."]</p>
+          <div class="week-section-head">What We Learned</div>
+          <p>[e.g. "Artisans were more forthcoming about income than expected. The middlemen dynamic was more complex than anticipated — some artisans view it as a necessary relationship, not just exploitation."]</p>
+        </div>
+      </div>
+
+      <!-- WEEK 4 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-title-block">
+            <h3>Week 4 — Analysis &amp; Synthesis</h3>
+            <div class="week-date">[DATE RANGE]</div>
+          </div>
+          <div class="week-num">04</div>
+        </div>
+        <div class="week-body">
+          <div class="week-section-head">What We Did</div>
+          <p>[e.g. "Transcribed and coded interview data, ran affinity mapping session (3 hours), identified [X] clusters, built empathy map, and completed the 5-Whys analysis as a team."]</p>
+          <div class="week-section-head">What We Learned</div>
+          <p>[e.g. "The consumer awareness gap emerged as the strongest cluster — more central than we had assumed. Re-prioritised the problem framing accordingly."]</p>
+        </div>
+      </div>
+
+      <!-- WEEK 5 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-title-block">
+            <h3>Week 5 — Problem Definition &amp; HMW</h3>
+            <div class="week-date">[DATE RANGE]</div>
+          </div>
+          <div class="week-num">05</div>
+        </div>
+        <div class="week-body">
+          <div class="week-section-head">What We Did</div>
+          <p>[e.g. "Finalised POV statement and HMW questions through [X] rounds of team review and one feedback session with faculty guide. Conducted reframe exercise with [X] alternative perspectives."]</p>
+          <div class="week-section-head">What We Learned</div>
+          <p>[e.g. "The reframe exercise was highly valuable — we shifted from a 'blame the machine' framing to a 'fix the information market' framing, which opened significantly more design space."]</p>
+        </div>
+      </div>
+
+      <!-- WEEK 6 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-title-block">
+            <h3>Week 6 — Ideation &amp; Concept Selection</h3>
+            <div class="week-date">[DATE RANGE]</div>
+          </div>
+          <div class="week-num">06</div>
+        </div>
+        <div class="week-body">
+          <div class="week-section-head">What We Did</div>
+          <p>[e.g. "Ran [X] brainstorming rounds (brainwriting, crazy 8s, SCAMPER). Generated [X]+ concepts. Used a voting + criteria matrix (desirability / feasibility / viability) to select one concept for prototyping."]</p>
+          <div class="week-section-head">What We Learned</div>
+          <p>[e.g. "The most creative ideas came from brainwriting, not verbal brainstorming. Team members who were quieter in discussions generated the strongest concepts on paper."]</p>
+        </div>
+      </div>
+
+      <!-- WEEK 7 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-title-block">
+            <h3>Week 7 — Prototyping</h3>
+            <div class="week-date">[DATE RANGE]</div>
+          </div>
+          <div class="week-num">07</div>
+        </div>
+        <div class="week-body">
+          <div class="week-section-head">What We Did</div>
+          <p>[e.g. "Built a paper prototype of the QR tag and a clickable Figma mockup of the consumer-facing web page. Created a simple WhatsApp-based update flow simulation for the artisan side."]</p>
+          <div class="week-section-head">What We Learned</div>
+          <p>[e.g. "Physical paper prototyping revealed that the QR tag needed to be much larger than we assumed to be legible when woven. The Figma prototype exposed confusion around the 'verify' CTA button."]</p>
+        </div>
+      </div>
+
+      <!-- WEEK 8 -->
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-title-block">
+            <h3>Week 8 — Testing &amp; Iteration</h3>
+            <div class="week-date">[DATE RANGE]</div>
+          </div>
+          <div class="week-num">08</div>
+        </div>
+        <div class="week-body">
+          <div class="week-section-head">What We Did</div>
+          <p>[e.g. "Conducted [X] user tests with consumers at [LOCATION] and [X] tests with artisans via video call. Iterated prototype twice based on feedback. Prepared final presentation and documentation."]</p>
+          <div class="week-section-head">What We Learned</div>
+          <p>[e.g. "Consumers responded strongly to the artisan's photograph and family story — more than to the certification data. Artisans valued the system most for the 'direct message' feature that lets buyers contact them."]</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- 15. FOOTER                           -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<div class="ikat-border"></div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Pochampally Ikat</div>
+    <div class="footer-subtitle">Design Thinking Project · [COURSE CODE] · [COLLEGE NAME]</div>
+    <div class="footer-team">
+      <div class="footer-member">[TEAM MEMBER 1]</div>
+      <div class="footer-member">[TEAM MEMBER 2]</div>
+      <div class="footer-member">[TEAM MEMBER 3]</div>
+      <div class="footer-member">[TEAM MEMBER 4]</div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-meta">
+      <span>[COLLEGE / UNIVERSITY NAME]</span> &nbsp;·&nbsp;
+      <span>[DEPARTMENT]</span> &nbsp;·&nbsp;
+      <span>[ACADEMIC YEAR]</span>
+      <br><br>
+      Faculty Guide: <span>[FACULTY GUIDE NAME]</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ░░░ MINIMAL VANILLA JS ░░░ -->
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile nav toggle
+  const toggle = document.getElementById('navToggle');
+  const links  = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // Scroll-triggered fade-up
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
