@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Idea Igniters — Pochampally Ikat Design Thinking</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ochre:#C8891F;--ochre-light:#E5A83A;--terracotta:#B5482A;--terra-dark:#7E2E16;
+  --cream:#F5EDD8;--cream-dark:#EAD8B4;--brown:#3B1F0E;--brown-mid:#6B3A22;
+  --linen:#FAF3E8;--ink:#2A1508;--ikat-blue:#2E4A6B;--ikat-teal:#3D7A6F;
+  --font-display:"Playfair Display",Georgia,serif;
+  --font-body:"Crimson Pro",Georgia,serif;
+  --max-w:1140px;--section-pad:88px 24px;--radius:6px;
+  --shadow:0 4px 24px rgba(59,31,14,0.12);--shadow-lg:0 12px 48px rgba(59,31,14,0.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:17px}
+body{font-family:var(--font-body);background:var(--linen);color:var(--ink);line-height:1.75}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+/* NAVBAR */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(250,243,232,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--cream-dark);transition:box-shadow .3s}
+#navbar.scrolled{box-shadow:0 2px 20px rgba(59,31,14,0.14)}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-brand{font-family:var(--font-display);font-weight:700;font-size:.92rem;color:var(--terracotta);white-space:nowrap;letter-spacing:.02em}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+.nav-links a{font-family:var(--font-body);font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--brown-mid);padding:5px 8px;border-radius:4px;transition:background .2s,color .2s}
+.nav-links a:hover{background:var(--ochre);color:#fff}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--brown);border-radius:2px}
+
+/* IKAT STRIPE */
+.ikat-border{background:repeating-linear-gradient(90deg,var(--ochre) 0,var(--ochre) 6px,var(--terracotta) 6px,var(--terracotta) 12px,var(--cream) 12px,var(--cream) 18px,var(--ikat-teal) 18px,var(--ikat-teal) 24px,var(--cream) 24px,var(--cream) 30px);height:8px;width:100%}
+
+/* SECTIONS */
+section{padding:var(--section-pad)}
+section:nth-child(odd){background:var(--linen)}
+section:nth-child(even){background:var(--cream)}
+.container{max-width:var(--max-w);margin:0 auto}
+.section-label{font-family:var(--font-body);font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ochre);margin-bottom:8px}
+.section-title{font-family:var(--font-display);font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:700;color:var(--brown);line-height:1.2;margin-bottom:28px}
+.section-title em{font-style:italic;color:var(--terracotta)}
+.divider{width:56px;height:3px;background:linear-gradient(90deg,var(--ochre),var(--terracotta));border-radius:2px;margin-bottom:34px}
+p{margin-bottom:1em;font-size:1.02rem}
+p:last-child{margin-bottom:0}
+
+/* HERO */
+#hero{background:linear-gradient(160deg,var(--brown) 0%,var(--terra-dark) 55%,#4A1C0A 100%);min-height:100vh;display:flex;flex-direction:column;padding:0;position:relative;overflow:hidden}
+.hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,transparent 0,transparent 28px,rgba(200,137,31,.05) 28px,rgba(200,137,31,.05) 30px),repeating-linear-gradient(-45deg,transparent 0,transparent 28px,rgba(181,72,42,.05) 28px,rgba(181,72,42,.05) 30px);pointer-events:none}
+.hero-top{height:56px}
+.hero-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px 80px;position:relative;z-index:1}
+.hero-kicker{font-family:var(--font-body);font-size:.78rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ochre-light);border:1px solid rgba(200,137,31,.4);display:inline-block;padding:5px 18px;border-radius:30px;margin-bottom:20px}
+.hero-title{font-family:var(--font-display);font-size:clamp(2rem,5.5vw,4.2rem);font-weight:900;color:var(--cream);line-height:1.1;max-width:860px;margin-bottom:16px}
+.hero-title span{color:var(--ochre-light)}
+.hero-tagline{font-family:var(--font-display);font-style:italic;font-size:clamp(1rem,2vw,1.35rem);color:rgba(245,237,216,.72);max-width:640px;margin-bottom:48px}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+.hero-block{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:16px 24px;min-width:180px;text-align:left}
+.hero-block .ml{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ochre-light);margin-bottom:6px}
+.hero-block .mv{font-family:var(--font-body);font-size:.92rem;color:var(--cream);line-height:1.55}
+.hero-bottom{height:8px}
+
+/* TEAM GRID */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:8px}
+.team-chip{background:var(--cream-dark);border:1px solid rgba(107,58,34,.2);border-radius:8px;padding:12px 16px;text-align:center}
+.team-chip .tc-name{font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--brown);margin-bottom:4px}
+.team-chip .tc-id{font-size:.72rem;letter-spacing:.04em;color:var(--brown-mid);opacity:.7}
+
+/* PHOTO GALLERY */
+.photo-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.photo-row.three{grid-template-columns:1fr 1fr 1fr}
+.photo-card{border-radius:10px;overflow:hidden;box-shadow:var(--shadow-lg);position:relative}
+.photo-card img{width:100%;height:260px;object-fit:cover;display:block}
+.photo-cap{background:var(--brown);color:var(--cream);padding:10px 16px;font-size:.82rem;font-weight:600;letter-spacing:.03em}
+
+/* USER PROFILE */
+.profile-grid{display:grid;grid-template-columns:260px 1fr;gap:44px;align-items:start}
+.profile-card{background:var(--brown);color:var(--cream);border-radius:12px;padding:28px 24px;text-align:center;box-shadow:var(--shadow-lg);position:sticky;top:76px}
+.profile-avatar{width:80px;height:80px;background:linear-gradient(135deg,var(--ochre),var(--terracotta));border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.profile-name{font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:3px}
+.profile-role{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ochre-light);margin-bottom:18px}
+.profile-stat{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.85rem}
+.profile-stat:last-child{border-bottom:none}
+.profile-stat-key{color:rgba(245,237,216,.6)}
+.profile-stat-val{font-weight:600;color:var(--cream);text-align:right;max-width:55%}
+.profile-detail h4{font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--brown);margin-bottom:10px;margin-top:24px}
+.profile-detail h4:first-child{margin-top:0}
+.profile-detail p{font-size:.98rem;color:var(--brown-mid)}
+.tag-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag{background:var(--cream-dark);border:1px solid var(--ochre);color:var(--brown);font-size:.75rem;font-weight:600;padding:4px 11px;border-radius:20px}
+
+/* CONTEXT */
+.context-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.context-block{background:var(--linen);border-top:3px solid var(--terracotta);border-radius:6px;padding:22px;box-shadow:var(--shadow)}
+.context-block:nth-child(2){border-color:var(--ochre)}
+.context-block:nth-child(3){border-color:var(--ikat-teal)}
+.context-block h4{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--brown);margin-bottom:10px}
+.context-block p{font-size:.93rem;color:var(--brown-mid)}
+
+/* EVIDENCE */
+.method-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px}
+.method-pill{display:flex;align-items:center;gap:7px;background:var(--brown);color:var(--cream);border-radius:30px;padding:7px 16px;font-size:.83rem;font-weight:600}
+.findings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.finding-card{background:#fff;border-radius:10px;padding:24px 20px;box-shadow:var(--shadow);border-left:4px solid var(--ochre);transition:transform .2s,box-shadow .2s}
+.finding-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.finding-card:nth-child(2){border-color:var(--terracotta)}
+.finding-card:nth-child(3){border-color:var(--ikat-teal)}
+.finding-card:nth-child(4){border-color:var(--ikat-blue)}
+.finding-card:nth-child(5){border-color:var(--ochre)}
+.finding-num{font-family:var(--font-display);font-size:2.2rem;font-weight:900;color:var(--ochre);line-height:1;margin-bottom:6px}
+.finding-card:nth-child(2) .finding-num{color:var(--terracotta)}
+.finding-card:nth-child(3) .finding-num{color:var(--ikat-teal)}
+.finding-card:nth-child(4) .finding-num{color:var(--ikat-blue)}
+.finding-card h5{font-family:var(--font-display);font-size:.97rem;font-weight:700;color:var(--brown);margin-bottom:7px}
+.finding-card p{font-size:.87rem;color:var(--brown-mid);margin:0}
+
+/* PAIN POINTS */
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.pain-card{background:linear-gradient(135deg,var(--terracotta) 0%,var(--terra-dark) 100%);color:var(--cream);border-radius:12px;padding:28px 24px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.pain-card::before{content:"";position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:rgba(255,255,255,.07);border-radius:50%}
+.pain-card:nth-child(2n){background:linear-gradient(135deg,var(--brown) 0%,#1E0E05 100%)}
+.pain-number{font-family:var(--font-display);font-size:2.8rem;font-weight:900;color:rgba(255,255,255,.13);line-height:1;position:absolute;top:12px;right:18px}
+.pain-icon{font-size:1.5rem;margin-bottom:10px}
+.pain-card h4{font-family:var(--font-display);font-size:1.05rem;font-weight:700;margin-bottom:9px}
+.pain-card p{font-size:.88rem;opacity:.85;margin:0}
+.pain-severity{display:flex;gap:4px;margin-top:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25)}
+.dot.filled{background:var(--ochre-light)}
+
+/* 5 WHYS */
+.whys-chain{position:relative;max-width:680px;margin:0 auto}
+.why-step{display:flex;gap:18px;align-items:flex-start}
+.why-connector{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:42px}
+.why-dot{width:42px;height:42px;border-radius:50%;background:var(--ochre);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:900;font-size:.85rem;color:#fff;flex-shrink:0;box-shadow:0 0 0 4px rgba(200,137,31,.2);z-index:1}
+.why-line{flex:1;width:2px;background:linear-gradient(180deg,var(--ochre),var(--terracotta));min-height:32px}
+.why-step:last-child .why-line{display:none}
+.why-content{background:var(--cream);border-radius:10px;padding:16px 20px;flex:1;box-shadow:var(--shadow);margin-bottom:12px;border-right:3px solid var(--ochre)}
+.why-step:last-child .why-content{border-color:var(--terracotta);background:var(--terracotta);color:var(--cream)}
+.why-step:last-child .why-content h5{color:var(--cream)}
+.why-step:last-child .why-content p{color:rgba(245,237,216,.85)}
+.why-content h5{font-family:var(--font-display);font-size:.97rem;font-weight:700;color:var(--terracotta);margin-bottom:5px}
+.why-content p{font-size:.9rem;color:var(--brown-mid);margin:0}
+.why-step:nth-child(5) .why-dot{background:var(--terracotta);box-shadow:0 0 0 4px rgba(181,72,42,.2)}
+
+/* IMPACT */
+#impact{background:var(--brown);color:var(--cream)}
+#impact .section-label{color:var(--ochre-light)}
+#impact .section-title{color:var(--cream)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2px;background:rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
+.stat-cell{background:rgba(0,0,0,.2);padding:32px 24px;text-align:center;transition:background .2s}
+.stat-cell:hover{background:rgba(200,137,31,.18)}
+.stat-big{font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:900;color:var(--ochre-light);line-height:1;margin-bottom:8px}
+.stat-label{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(245,237,216,.6);line-height:1.4}
+.impact-note{margin-top:28px;padding:20px 24px;background:rgba(200,137,31,.15);border-left:4px solid var(--ochre);border-radius:6px;font-size:.96rem;color:rgba(245,237,216,.85)}
+
+/* POV */
+.pov-frame{max-width:800px;margin:0 auto;text-align:center;padding:52px 36px;background:linear-gradient(135deg,var(--brown) 0%,var(--terra-dark) 100%);border-radius:16px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.pov-frame::before,.pov-frame::after{content:'"';font-family:var(--font-display);font-size:10rem;font-weight:900;color:rgba(200,137,31,.1);position:absolute;line-height:1}
+.pov-frame::before{top:-10px;left:8px}
+.pov-frame::after{bottom:-50px;right:8px}
+.pov-kicker{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre-light);margin-bottom:18px}
+.pov-text{font-family:var(--font-display);font-size:clamp(1.1rem,2.2vw,1.55rem);font-weight:600;color:var(--cream);line-height:1.6;position:relative;z-index:1}
+.pov-user{color:var(--ochre-light);font-style:italic}
+.pov-need{color:#A5D8CC;font-style:italic}
+.pov-insight{color:#E8B4A0;font-style:italic}
+
+/* HMW */
+.hmw-list{display:flex;flex-direction:column;gap:14px}
+.hmw-item{display:flex;gap:18px;align-items:flex-start;background:var(--cream-dark);border-radius:10px;padding:20px 24px;border-left:5px solid var(--ochre);box-shadow:var(--shadow);transition:transform .2s}
+.hmw-item:hover{transform:translateX(5px)}
+.hmw-item:nth-child(2){border-color:var(--terracotta)}
+.hmw-item:nth-child(3){border-color:var(--ikat-teal)}
+.hmw-item:nth-child(4){border-color:var(--ikat-blue)}
+.hmw-item:nth-child(5){border-color:var(--ochre)}
+.hmw-badge{font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--ochre);border-radius:4px;padding:4px 9px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.hmw-item:nth-child(2) .hmw-badge{background:var(--terracotta)}
+.hmw-item:nth-child(3) .hmw-badge{background:var(--ikat-teal)}
+.hmw-item:nth-child(4) .hmw-badge{background:var(--ikat-blue)}
+.hmw-item p{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--brown);margin:0;line-height:1.4}
+
+/* REFRAME */
+.reframe-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.reframe-card{border-radius:10px;padding:24px;box-shadow:var(--shadow)}
+.reframe-card.old{background:var(--cream-dark);border:2px dashed rgba(107,58,34,.3)}
+.reframe-card.new{background:linear-gradient(135deg,var(--ikat-teal),#2A6B61);color:var(--cream)}
+.rc-label{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px}
+.reframe-card.old .rc-label{color:var(--terracotta)}
+.reframe-card.new .rc-label{color:rgba(245,237,216,.7)}
+.reframe-card h4{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:9px}
+.reframe-card.old h4{color:var(--brown-mid)}
+.reframe-card.new h4{color:var(--cream)}
+.reframe-card p{font-size:.9rem;margin:0}
+.reframe-card.old p{color:var(--brown-mid)}
+.reframe-card.new p{color:rgba(245,237,216,.82)}
+
+/* PROBLEM */
+.problem-frame{background:var(--brown);border-radius:16px;padding:52px 44px;text-align:center;box-shadow:var(--shadow-lg);max-width:840px;margin:0 auto;position:relative}
+.problem-frame::before{content:"FINAL PROBLEM STATEMENT";position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:.65rem;font-weight:700;letter-spacing:.24em;color:var(--ochre-light);white-space:nowrap}
+.problem-text{font-family:var(--font-display);font-size:clamp(1.2rem,2.6vw,1.75rem);font-weight:700;color:var(--cream);line-height:1.45;margin-top:12px}
+.problem-text mark{background:none;color:var(--ochre-light);border-bottom:2px solid var(--ochre-light)}
+
+/* FOOTER */
+footer{background:var(--ink);color:var(--cream);padding:52px 24px 36px;text-align:center}
+.footer-inner{max-width:var(--max-w);margin:0 auto}
+.footer-logo{font-family:var(--font-display);font-size:1.5rem;font-weight:900;color:var(--ochre-light);margin-bottom:6px}
+.footer-subtitle{font-size:.85rem;color:rgba(245,237,216,.5);letter-spacing:.06em;margin-bottom:28px}
+.footer-team{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-bottom:24px}
+.footer-member{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:6px 16px;font-size:.82rem;color:var(--cream-dark)}
+.footer-divider{width:36px;height:2px;background:var(--ochre);margin:0 auto 18px;border-radius:1px}
+.footer-meta{font-size:.8rem;color:rgba(245,237,216,.4)}
+.footer-meta span{color:rgba(245,237,216,.6)}
+
+/* FADE IN */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  :root{--section-pad:60px 18px}
+  .profile-grid{grid-template-columns:1fr}
+  .profile-card{position:static}
+  .context-cols{grid-template-columns:1fr}
+  .reframe-grid{grid-template-columns:1fr}
+  .photo-row{grid-template-columns:1fr}
+  .photo-row.three{grid-template-columns:1fr}
+}
+@media(max-width:660px){
+  .nav-links{display:none;flex-direction:column;gap:2px;position:absolute;top:56px;left:0;right:0;background:var(--linen);border-bottom:1px solid var(--cream-dark);padding:8px 14px}
+  .nav-links.open{display:flex}
+  .nav-toggle{display:flex}
+  .hero-meta{flex-direction:column;align-items:center}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .pov-frame{padding:32px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="ikat-border" style="position:fixed;top:0;left:0;right:0;z-index:1000;opacity:.7;height:4px;"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">Idea Igniters · Pochampally Ikat</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#user">User</a></li>
+      <li><a href="#context">Context</a></li>
+      <li><a href="#evidence">Evidence</a></li>
+      <li><a href="#painpoints">Pain Points</a></li>
+      <li><a href="#whys">5 Whys</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#pov">POV</a></li>
+      <li><a href="#hmw">HMW</a></li>
+      <li><a href="#reframe">Reframe</a></li>
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#prototype">Prototype</a></li><li><a href="#team">Team</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     1. HERO
+══════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-top"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-body">
+    <div class="hero-kicker">Design Thinking · Define Phase · Mahindra University</div>
+    <h1 class="hero-title">
+      Impact of <span>Power Loom Products</span> on Authentic Handloom
+      Pochampally Ikat Artisans
+    </h1>
+    <p class="hero-tagline">Unravelling the threads of a dying craft — and reimagining its future</p>
+    <div class="hero-meta">
+      <div class="hero-block">
+        <div class="ml">Team</div>
+        <div class="mv" style="font-weight:700;font-size:1.05rem;color:var(--ochre-light);">Idea Igniters</div>
+      </div>
+      <div class="hero-block">
+        <div class="ml">Institution</div>
+        <div class="mv">Mahindra University<br>School of Engineering</div>
+      </div>
+      <div class="hero-block">
+        <div class="ml">Academic Year</div>
+        <div class="mv">2025–26</div>
+        <div class="ml" style="margin-top:10px">Faculty Mentor</div>
+        <div class="mv">Prof. Sayoni</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bottom"></div>
+  <div class="ikat-border"></div>
+</section>
+
+<!-- ══════════════════════════════════════
+     2. USER / PROTAGONIST
+══════════════════════════════════════ -->
+<section id="user">
+  <div class="container">
+    <div class="section-label">Section 01</div>
+    <h2 class="section-title">User / <em>Protagonist</em></h2>
+    <div class="divider"></div>
+    <div class="profile-grid fade-up">
+      <div class="profile-card">
+        <div class="profile-avatar">🧵</div>
+        <div class="profile-name">Pochampally Handloom Weaver</div>
+        <div class="profile-role">Traditional Ikat Artisan</div>
+        <div class="profile-stat"><span class="profile-stat-key">Age Group</span><span class="profile-stat-val">Middle-aged &amp; above</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">Location</span><span class="profile-stat-val">Pochampally Village, Telangana</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">Primary Role</span><span class="profile-stat-val">Handloom Ikat Weaving</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">Stall Locations</span><span class="profile-stat-val">Shilparamam &amp; local markets</span></div>
+        <div class="profile-stat"><span class="profile-stat-key">GI Tag Product</span><span class="profile-stat-val">Pochampally Ikat (since 2004)</span></div>
+      </div>
+      <div class="profile-detail">
+        <h4>Background &amp; Story</h4>
+        <p>The Pochampally weaving community is predominantly composed of middle-aged weavers and above, with minimal involvement of younger generations. This demographic pattern reflects a troubling generational gap driven by lack of interest and awareness of the economic consequences that await those who abandon the craft.</p>
+        <p>The key role of these weavers is to create and preserve traditional, handwoven Pochampally Ikat products that treasure Indian culture and heritage. Despite facing severe hardships — a competitive market disrupted by machine-made fabrics, falling incomes, and dwindling demand — these artisans remain steadfast, determined, and deeply passionate about keeping this centuries-old art alive.</p>
+        <h4>Our Field Interaction</h4>
+        <p>We consulted <strong>2 local weavers operating stalls at Shilparamam, Hyderabad</strong>, to understand the depth and intensity of the issue from their perspective. These conversations revealed not only the financial burden they carry but also the deep emotional investment they have in their craft — one that machines simply cannot replicate.</p>
+        <h4>Skills &amp; Expertise</h4>
+        <div class="tag-list">
+          <span class="tag">Resist Dyeing (Ikat)</span>
+          <span class="tag">Warp Ikat</span>
+          <span class="tag">Weft Ikat</span>
+          <span class="tag">Double Ikat</span>
+          <span class="tag">Pattern Design</span>
+          <span class="tag">Natural Dyes</span>
+          <span class="tag">Pit Loom Weaving</span>
+        </div>
+        <h4 style="margin-top:22px">Artisan Voice</h4>
+        <p style="font-style:italic;color:var(--terracotta);border-left:3px solid var(--ochre);padding-left:14px;">"Our craft takes days of painstaking work — tying, dyeing, aligning patterns — but customers walk away for a machine copy that costs a fraction of the price. How do we justify 20 days of our lives?"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     3. CONTEXT & SITUATION
+══════════════════════════════════════ -->
+<section id="context">
+  <div class="container">
+    <div class="section-label">Section 02</div>
+    <h2 class="section-title">Context &amp; <em>Situation</em></h2>
+    <div class="divider"></div>
+    <div class="context-cols fade-up">
+      <div class="context-block">
+        <h4>The Machine Woven Era</h4>
+        <p>The rise of machine-woven fabrics — employing highly advanced, efficient technologies across various stages of weaving — has directly led to a decline in handloom cloth sales. Power looms can simplify the weaving process, rapidly generate Pochampally-style fabrics, and duplicate printed Ikat designs with high-tech equipment that drastically reduces labour intensity.</p>
+      </div>
+      <div class="context-block">
+        <h4>Economic Displacement</h4>
+        <p>Power looms lure customers away with significantly lower prices, creating unemployment and threatening the livelihoods of handloom weavers. The labour employed across various stages of the handloom process — not just the primary weavers but also dyers, warpers, and helpers — are all severely impacted by this structural shift in the textile economy.</p>
+      </div>
+      <div class="context-block">
+        <h4>The Systemic Failure</h4>
+        <p>Government subsidies and cooperative societies exist but often fail due to bureaucratic delays, poor marketing, and limited digital outreach. Attempts to modernise production lack emotional and cultural sensitivity. Machines cannot replicate the soul of handwoven art — yet the market continues to reward quantity over quality, eroding the value of authentic craftsmanship.</p>
+      </div>
+    </div>
+
+    <!-- Field Photos -->
+    <div class="photo-row" style="margin-top:36px;">
+      <div class="photo-card">
+        <img src="img-sarees-stall.jpg" alt="Handloom Ikat sarees displayed at Shilparamam stall" />
+        <div class="photo-cap">📍 Shilparamam — Handloom Ikat sarees at an artisan's stall</div>
+      </div>
+      <div class="photo-card">
+        <img src="img-team-stall.jpg" alt="Team at Pochampally Ikat Fabrics stall" />
+        <div class="photo-cap">📍 Field visit — Swathi SHG, Yadadri Bhuvanagiri · Pochampally Ikat Fabrics &amp; Apparels</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     4. EVIDENCE BASE
+══════════════════════════════════════ -->
+<section id="evidence">
+  <div class="container">
+    <div class="section-label">Section 03</div>
+    <h2 class="section-title">Evidence <em>Base</em></h2>
+    <div class="divider"></div>
+
+    <div class="method-pills fade-up">
+      <div class="method-pill">🗣️ In-depth Interviews — 2 Artisans (Shilparamam)</div>
+      <div class="method-pill">📋 Community Survey — Cross-age groups, varied backgrounds</div>
+      <div class="method-pill">👁️ Field Observations — Artisan stalls &amp; markets</div>
+      <div class="method-pill">📖 Secondary Research — Academic literature &amp; GI documentation</div>
+    </div>
+
+    <div class="findings-grid fade-up">
+      <div class="finding-card">
+        <div class="finding-num">↓ Sales</div>
+        <h5>Declining Handloom Demand</h5>
+        <p>Survey data confirmed a widespread decline in handloom cloth sales as consumers increasingly choose cheaper machine-made alternatives that visually mimic authentic Ikat.</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">0%</div>
+        <h5>Zero Digital Marketing Capability</h5>
+        <p>Both artisans interviewed reported complete inability to engage with digital marketing, advertising, or premium branding across social media and e-commerce platforms.</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">GI Gap</div>
+        <h5>Authenticity Cannot Be Justified</h5>
+        <p>Despite the GI tag (awarded 2004), weavers lack the tools and skills to justify product authenticity and corresponding premium pricing at the point of sale.</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">High</div>
+        <h5>Financial Burden is Severe</h5>
+        <p>Artisans struggle to pay rent, support family requirements, fulfill financial obligations, and manage GST — all while incomes shrink due to power loom competition.</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">↑ Age</div>
+        <h5>Youth Disengagement from the Craft</h5>
+        <p>Younger generations are disengaging from weaving due to poor financial prospects and the social undervaluation of artisanal work — threatening generational continuity.</p>
+      </div>
+    </div>
+
+    <!-- Field Photo — Team at Shilparamam -->
+    <div style="margin-top:36px;">
+      <div class="photo-card" style="max-width:680px;margin:0 auto;">
+        <img src="img-interview.jpg" alt="Team Idea Igniters interviewing artisan at Shilparamam" style="height:380px;object-fit:cover;width:100%" />
+        <div class="photo-cap">📸 Team Idea Igniters conducting field interviews with an artisan at Shilparamam, Hyderabad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     5. PAIN POINTS & NEEDS
+══════════════════════════════════════ -->
+<section id="painpoints">
+  <div class="container">
+    <div class="section-label">Section 04</div>
+    <h2 class="section-title">Pain Points <em>&amp; Needs</em></h2>
+    <div class="divider"></div>
+    <div class="pain-grid fade-up">
+
+      <div class="pain-card">
+        <div class="pain-number">01</div>
+        <div class="pain-icon">💔</div>
+        <h4>Craft Overshadowed by Imitation</h4>
+        <p>Authentic Pochampally Ikat is overshadowed by mass-produced imitations. The artistry that once symbolized cultural pride now competes with machine-made fabrics at a fraction of the price — leaving artisans feeling invisible and undervalued.</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-number">02</div>
+        <div class="pain-icon">📉</div>
+        <h4>Declining Demand &amp; Shrinking Margins</h4>
+        <p>Weavers face declining demand and shrinking profit margins as power loom goods dominate the market. The erosion of their creative identity and economic base is accelerating with no adequate support structure in place.</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-number">03</div>
+        <div class="pain-icon">🌐</div>
+        <h4>No IP Protection or Market Recognition</h4>
+        <p>Weavers need fair market recognition and stronger intellectual property protection. Despite the GI tag, enforcement is weak and consumers at the point of sale have no reliable way to identify or value authentic handloom products.</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-number">04</div>
+        <div class="pain-icon">😞</div>
+        <h4>Emotional Exhaustion &amp; Anxiety</h4>
+        <p>Weavers experience deep frustration, helplessness, and anxiety. Watching their heritage diluted by imitation leaves them feeling invisible. Many report emotional exhaustion from constant bargaining and the fear of losing generational continuity in their craft.</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="pain-card">
+        <div class="pain-number">05</div>
+        <div class="pain-icon">🚫</div>
+        <h4>Missing Support Systems</h4>
+        <p>Support systems for marketing, design innovation, sustainable income, and digital access are urgently missing. Artisans lack modern tools that could enhance — not replace — their craftsmanship, leaving them structurally disadvantaged.</p>
+        <div class="pain-severity">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     6. ROOT CAUSES — 5 WHYS
+══════════════════════════════════════ -->
+<section id="whys">
+  <div class="container">
+    <div class="section-label">Section 05</div>
+    <h2 class="section-title">Root Cause Analysis — <em>5 Whys</em></h2>
+    <div class="divider"></div>
+
+    <div style="text-align:center;margin-bottom:36px;">
+      <div style="display:inline-block;background:var(--terracotta);color:#fff;border-radius:8px;padding:13px 26px;font-family:var(--font-display);font-weight:700;font-size:1rem;max-width:600px;">
+        Problem: Handloom Pochampally Ikat artisans are experiencing a rapid decline in income and market share.
+      </div>
+    </div>
+
+    <div class="whys-chain fade-up">
+      <div class="why-step">
+        <div class="why-connector"><div class="why-dot">W1</div><div class="why-line"></div></div>
+        <div class="why-content">
+          <h5>Why are artisans losing income and market share?</h5>
+          <p>Because power looms offer cheaper, faster alternatives that appeal to cost-conscious consumers — creating a systemic imbalance that traditional artisans cannot match on price or speed.</p>
+        </div>
+      </div>
+      <div class="why-step">
+        <div class="why-connector"><div class="why-dot">W2</div><div class="why-line"></div></div>
+        <div class="why-content">
+          <h5>Why can't artisans compete on these terms?</h5>
+          <p>Because the market rewards quantity over quality, and handloom weavers lack technological integration, capital access, and weak policy enforcement for craft protection — structural inequities that have built up over decades.</p>
+        </div>
+      </div>
+      <div class="why-step">
+        <div class="why-connector"><div class="why-dot">W3</div><div class="why-line"></div></div>
+        <div class="why-content">
+          <h5>Why does the market fail to recognise and price authenticity?</h5>
+          <p>Because consumers at the point of sale cannot distinguish authentic handloom Ikat from power loom imitations — the GI tag system exists but has not been implemented in a visible, consumer-accessible way.</p>
+        </div>
+      </div>
+      <div class="why-step">
+        <div class="why-connector"><div class="why-dot">W4</div><div class="why-line"></div></div>
+        <div class="why-content">
+          <h5>Why hasn't the GI system translated into consumer-facing protection?</h5>
+          <p>Because cultural and educational gaps persist — young generations disengage from weaving, marketing literacy is near zero among artisans, and no accessible, low-cost tools exist to bridge the gap between artisan identity and consumer knowledge.</p>
+        </div>
+      </div>
+      <div class="why-step">
+        <div class="why-connector"><div class="why-dot" style="background:var(--terracotta);">W5</div><div class="why-line"></div></div>
+        <div class="why-content">
+          <h5>Root Cause — Why do these gaps persist structurally?</h5>
+          <p>Because policy frameworks, cooperative structures, and support systems are designed for administrative scale and bureaucratic compliance — not around the actual daily constraints of rural handloom weavers. The system rewards industrial efficiency, not artisanal authenticity, and no market infrastructure exists to tell the weaver's story where it matters most: at the point of purchase.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     7. IMPACT & SCALE
+══════════════════════════════════════ -->
+<section id="impact">
+  <div class="container">
+    <div class="section-label">Section 06</div>
+    <h2 class="section-title">Impact &amp; <em>Scale</em></h2>
+    <div class="divider" style="background:linear-gradient(90deg,var(--ochre-light),var(--cream));"></div>
+
+    <div class="stats-grid fade-up">
+      <div class="stat-cell">
+        <div class="stat-big">Hundreds</div>
+        <div class="stat-label">Families in Pochampally Dependent on Weaving as Primary Livelihood</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">↓ Many</div>
+        <div class="stat-label">Families Now Abandoning the Craft Due to Unsustainable Incomes</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">GI 2004</div>
+        <div class="stat-label">Year of GI Tag Award — Yet Enforcement &amp; Consumer Awareness Remain Low</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">High</div>
+        <div class="stat-label">Frequency of Market Losses &amp; Emotional Distress Reported by Artisans</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">0</div>
+        <div class="stat-label">Effective Digital Marketing Tools Available to Artisans Today</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-big">At Risk</div>
+        <div class="stat-label">Centuries-Old Art Form &amp; Telangana Heritage Identity</div>
+      </div>
+    </div>
+
+    <div class="impact-note fade-up">
+      <strong>Critical Warning:</strong> If left unresolved, the Pochampally region risks losing its cultural legacy, artisanal skills, and economic stability. The extinction of authentic Ikat weaving would mean the disappearance of a centuries-old art form that defines Telangana's heritage — and the ripple effects on community identity and local economy would be irreversible. Government subsidies and cooperative societies exist but often fail due to bureaucratic delays, poor marketing, and limited digital outreach.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     8. POINT OF VIEW STATEMENT
+══════════════════════════════════════ -->
+<section id="pov">
+  <div class="container">
+    <div class="section-label">Section 07</div>
+    <h2 class="section-title" style="text-align:center">Point of <em>View Statement</em></h2>
+    <div class="divider" style="margin:0 auto 36px;"></div>
+    <div class="pov-frame fade-up">
+      <div class="pov-kicker">Stanford d.school Define Phase · [User] needs [Need] because [Insight]</div>
+      <div class="pov-text">
+        <span class="pov-user">The traditional Pochampally handloom weaver — a skilled artisan preserving generations of cultural heritage and craftsmanship —</span>
+        &nbsp;needs to&nbsp;
+        <span class="pov-need">sustain their livelihood and creative identity by finding equitable ways to compete with mechanized power loom production</span>
+        &nbsp;because&nbsp;
+        <span class="pov-insight">mass-produced imitations have devalued authentic designs, leading to emotional distress, loss of cultural pride, and declining motivation among artisans who feel unseen and economically marginalised.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     9. HOW MIGHT WE
+══════════════════════════════════════ -->
+<section id="hmw">
+  <div class="container">
+    <div class="section-label">Section 08</div>
+    <h2 class="section-title">How Might <em>We…?</em></h2>
+    <div class="divider"></div>
+    <div class="hmw-list fade-up">
+      <div class="hmw-item">
+        <div class="hmw-badge">HMW 1</div>
+        <p>How might we empower handloom weavers to compete with industrial power looms while preserving culture, creativity, and dignity?</p>
+      </div>
+      <div class="hmw-item">
+        <div class="hmw-badge">HMW 2</div>
+        <p>How might we reposition handloom Pochampally Ikat as a premium heritage product and educate urban consumers to recognise and value authentic craftsmanship?</p>
+      </div>
+      <div class="hmw-item">
+        <div class="hmw-badge">HMW 3</div>
+        <p>How might we reduce production costs for handloom weavers without compromising quality and craftsmanship?</p>
+      </div>
+      <div class="hmw-item">
+        <div class="hmw-badge">HMW 4</div>
+        <p>How might we help handloom weavers earn stable incomes despite cheaper power loom competition — and protect the identity of handloom weaving in a market dominated by imitation?</p>
+      </div>
+      <div class="hmw-item">
+        <div class="hmw-badge">HMW 5</div>
+        <p>How might we engage youth and integrate weaving villages into tourism and exports, creating new markets that celebrate authentic Ikat before power loom dominance makes recovery impossible?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     10. REFRAME CHECK
+══════════════════════════════════════ -->
+<section id="reframe">
+  <div class="container">
+    <div class="section-label">Section 09</div>
+    <h2 class="section-title">Reframe <em>Check</em></h2>
+    <div class="divider"></div>
+    <p style="margin-bottom:26px;color:var(--brown-mid);">Following Wedell-Wedellsborg (HBR, 2017), we challenged our initial framing to uncover richer problem spaces and design opportunities.</p>
+
+    <div class="reframe-grid fade-up">
+      <div class="reframe-card old">
+        <div class="rc-label">Conventional Frame</div>
+        <h4>Mechanisation vs. Tradition: A Zero-Sum Battle</h4>
+        <p>The initial framing treated power looms purely as the villain and handloom weavers purely as victims — a conflict where one must destroy the other.</p>
+      </div>
+      <div class="reframe-card new">
+        <div class="rc-label">Reframed Perspective</div>
+        <h4>A Transition in Textile Economies — Adaptation, Not Resistance</h4>
+        <p>Mechanisation represents a shift in consumer expectations and production models. The real challenge is how traditional craftsmanship can adapt and reposition itself through cultural depth, storytelling, and selective innovation — survival through renewal rather than resistance.</p>
+      </div>
+      <div class="reframe-card old">
+        <div class="rc-label">Conventional Frame</div>
+        <h4>Power Looms Exploit; Artisans Suffer</h4>
+        <p>From a narrow view, mechanisation is pure exploitation. This framing closes off possibilities for collaboration and shared value creation.</p>
+      </div>
+      <div class="reframe-card new">
+        <div class="rc-label">Reframed Perspective</div>
+        <h4>Missing Link: Collaboration Over Competition</h4>
+        <p>From the power loom perspective, the issue is efficiency and accessibility — democratising textiles. The missing link is collaboration: if artisans and technologists co-create, machines can handle scale while artisans preserve authenticity, shifting the narrative from conflict to co-creation with shared value and sustainable livelihoods.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     11. FINAL PROBLEM STATEMENT
+══════════════════════════════════════ -->
+<section id="problem">
+  <div class="container">
+    <div class="section-label">Section 10</div>
+    <h2 class="section-title" style="text-align:center;">Final <em>Problem Statement</em></h2>
+    <div class="divider" style="margin:0 auto 36px;"></div>
+    <div class="problem-frame fade-up">
+      <div class="problem-text">
+        The Pochampally handloom weaver faces <mark>economic and emotional hardship</mark> due to power loom competition that undermines authenticity and devalues craftsmanship.
+        <br><br>
+        Empowering them through <mark>innovation, protection, and cultural repositioning</mark> can ensure that handloom artistry regains market respect, sustains livelihoods, and continues as a living heritage.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     12. THE TEAM
+══════════════════════════════════════ -->
+<section id="team">
+  <div class="container">
+    <div class="section-label">Section 11</div>
+    <h2 class="section-title">Meet the <em>Team</em></h2>
+    <div class="divider"></div>
+    <p style="color:var(--brown-mid);margin-bottom:28px;">Eight students from Mahindra University came together as <strong style="color:var(--brown)">Idea Igniters</strong> — conducting field research, artisan interviews, surveys, and synthesising insights to define this challenge through the lens of human-centred design.</p>
+
+    <div class="team-grid fade-up">
+      <div class="team-chip"><div class="tc-name">Srikar Nandagiri</div><div class="tc-id">SE24UCAM049</div></div>
+      <div class="team-chip"><div class="tc-name">Prajwal Datla</div><div class="tc-id">SE25LCAM001</div></div>
+      <div class="team-chip"><div class="tc-name">Dhanvin Adabala</div><div class="tc-id">SE24UCAM036</div></div>
+      <div class="team-chip"><div class="tc-name">Rishika Mamidyala</div><div class="tc-id">SE24UNAN013</div></div>
+      <div class="team-chip"><div class="tc-name">Bontha Tanmayee</div><div class="tc-id">SE24UCAM025</div></div>
+      <div class="team-chip"><div class="tc-name">Ananya Munnangi</div><div class="tc-id">SE24UCAM030</div></div>
+      <div class="team-chip"><div class="tc-name">Chakrika Stotri</div><div class="tc-id">SE24UCAM071</div></div>
+      <div class="team-chip"><div class="tc-name">Nerusu Varshitha</div><div class="tc-id">SE24UCSE108</div></div>
+    </div>
+
+    <!-- Team Photos -->
+    <div class="photo-row" style="margin-top:36px;">
+      <div class="photo-card">
+        <img src="img-team-group.jpg" alt="Team Idea Igniters group photo at Shilparamam" style="height:320px;object-fit:cover;width:100%" />
+        <div class="photo-cap">📸 The full team — Idea Igniters · Field Research at Shilparamam, Hyderabad</div>
+      </div>
+      <div class="photo-card">
+        <img src="img-weaver-interview.jpg" alt="Team interviewing weaver at Shilparamam" style="height:320px;object-fit:cover;width:100%" />
+        <div class="photo-cap">📸 Conducting artisan interviews at the Shilparamam crafts village</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<!-- ══════════════════════════════════════
+     CONCEPT DEMO — QR AUTHENTICATION
+══════════════════════════════════════ -->
+<section id="prototype" style="background:var(--brown);color:var(--cream);">
+  <div class="container">
+    <div class="section-label" style="color:var(--ochre-light);">Concept Demo — Prototype</div>
+    <h2 class="section-title" style="color:var(--cream);">The <em style="color:var(--ochre-light);">Ikat Identity</em> QR Solution</h2>
+    <div class="divider" style="background:linear-gradient(90deg,var(--ochre-light),var(--cream));"></div>
+
+    <p style="color:rgba(245,237,216,.8);max-width:700px;margin-bottom:40px;font-size:1.05rem;">
+      Every authentic Pochampally Ikat saree gets a unique QR tag. A customer scans it at any point —
+      market stall, boutique, or online — and instantly lands on the artisan's verified product page.
+      This demo shows exactly what that experience looks like.
+    </p>
+
+    <!-- HOW IT WORKS FLOW -->
+    <div class="flow-steps fade-up">
+      <div class="flow-step">
+        <div class="flow-icon">🏷️</div>
+        <div class="flow-num">01</div>
+        <div class="flow-label">QR Tag Attached to Saree</div>
+        <div class="flow-desc">Each handloom saree gets a unique printed QR tag at the time of completion — woven border label or hang tag.</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">📱</div>
+        <div class="flow-num">02</div>
+        <div class="flow-label">Consumer Scans at Purchase</div>
+        <div class="flow-desc">Any smartphone camera scans the QR. No app needed. Works at market stall, boutique, or online listing.</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">✅</div>
+        <div class="flow-num">03</div>
+        <div class="flow-label">Artisan Profile Page Opens</div>
+        <div class="flow-desc">The buyer sees who made it, how long it took, GI certification status, and can contact the weaver directly.</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step active">
+        <div class="flow-icon">💰</div>
+        <div class="flow-num">04</div>
+        <div class="flow-label">Trust → Premium Price</div>
+        <div class="flow-desc">Verified authenticity justifies the price premium. Artisan earns more. Craft survives. Heritage protected.</div>
+      </div>
+    </div>
+
+    <!-- DEMO CTA -->
+    <div class="demo-cta-box fade-up">
+      <div class="demo-left">
+        <div class="demo-label">Scan this QR to experience the prototype</div>
+        <div class="demo-sublabel">Or click the button below to open the artisan product page</div>
+        <!-- QR CODE — generated via Google Charts API as data URI equivalent using pure SVG QR -->
+        <div id="qrcode-container" style="margin-top:16px;"></div>
+      </div>
+      <div class="demo-right">
+        <div class="demo-saree-tag">
+          <div class="dst-top">
+            <span class="dst-gi">🏅 GI Certified</span>
+            <span class="dst-id">PIKAT-2025-0047</span>
+          </div>
+          <div class="dst-title">Pochampally Double Ikat</div>
+          <div class="dst-weaver">Artisan: Ravi Kumar · Pochampally Village</div>
+          <div id="qr-svg-tag" style="margin:12px auto;width:90px;height:90px;"></div>
+          <div class="dst-scan">Scan to verify authenticity</div>
+        </div>
+        <a href="#artisan-page" onclick="openArtisanPage()" class="demo-btn">
+          👆 Open Artisan Product Page
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ARTISAN PRODUCT PAGE (DEMO MODAL)
+══════════════════════════════════════ -->
+<div id="artisan-page-overlay" style="display:none;">
+  <div id="artisan-page-modal">
+    <button onclick="closeArtisanPage()" id="ap-close">✕ Close Demo</button>
+
+    <!-- ARTISAN PAGE CONTENT -->
+    <div id="ap-content">
+
+      <!-- TOP BAR -->
+      <div id="ap-topbar">
+        <div id="ap-topbar-left">
+          <span id="ap-gi-badge">🏅 GI Certified · Govt. of India</span>
+        </div>
+        <div id="ap-topbar-right">Pochampally Ikat Identity</div>
+      </div>
+
+      <!-- HERO PRODUCT AREA -->
+      <div id="ap-hero">
+        <div id="ap-product-img">
+          <img src="img-ikat-sarees.jpg" alt="Authentic Pochampally Ikat Sarees" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+          <div id="ap-verified-badge">✅ Verified Authentic</div>
+        </div>
+        <div id="ap-product-info">
+          <div id="ap-product-id">Product ID: PIKAT-2025-0047</div>
+          <h1 id="ap-product-name">Pochampally Double Ikat Saree</h1>
+          <div id="ap-product-sub">Hand-woven · Resist-dyed · Telangana Heritage</div>
+
+          <div id="ap-price-row">
+            <div id="ap-price">₹4,800</div>
+            <div id="ap-price-note">Fair artisan price · No middlemen</div>
+          </div>
+
+          <div id="ap-craft-stats">
+            <div class="aps">
+              <div class="aps-num">18</div>
+              <div class="aps-label">Days to Weave</div>
+            </div>
+            <div class="aps">
+              <div class="aps-num">3</div>
+              <div class="aps-label">Dyeing Rounds</div>
+            </div>
+            <div class="aps">
+              <div class="aps-num">100%</div>
+              <div class="aps-label">Handloom</div>
+            </div>
+            <div class="aps">
+              <div class="aps-num">GI ✓</div>
+              <div class="aps-label">Authenticated</div>
+            </div>
+          </div>
+
+          <div id="ap-actions">
+            <button class="ap-btn-primary" onclick="alert('Demo: Direct WhatsApp message to artisan opened!')">💬 Contact Artisan Directly</button>
+            <button class="ap-btn-secondary" onclick="alert('Demo: Added to cart — purchase goes directly to weaver!')">🛍️ Buy Direct</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTISAN PROFILE -->
+      <div id="ap-artisan-section">
+        <h2 class="ap-section-h">Meet Your Artisan</h2>
+        <div id="ap-artisan-card">
+          <div id="ap-artisan-avatar">🧵</div>
+          <div id="ap-artisan-details">
+            <div id="ap-artisan-name">Ravi Kumar</div>
+            <div id="ap-artisan-village">Pochampally Village, Yadadri Bhuvanagiri, Telangana</div>
+            <div id="ap-artisan-bio">Ravi has been weaving Pochampally Ikat for over 22 years, learning the craft from his father. He specialises in Double Ikat — one of the most complex weaving techniques in the world, where both warp and weft threads are resist-dyed before weaving begins.</div>
+            <div id="ap-artisan-tags">
+              <span class="ap-tag">Double Ikat</span>
+              <span class="ap-tag">22 yrs experience</span>
+              <span class="ap-tag">Natural dyes</span>
+              <span class="ap-tag">GI Registered</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS TIMELINE -->
+      <div id="ap-process-section">
+        <h2 class="ap-section-h">How This Saree Was Made</h2>
+        <div id="ap-timeline">
+          <div class="ap-tl-step">
+            <div class="ap-tl-dot">1</div>
+            <div class="ap-tl-content">
+              <div class="ap-tl-title">Yarn Selection &amp; Warping</div>
+              <div class="ap-tl-desc">Fine cotton yarn selected and measured on the warping frame. Pattern planned entirely in the artisan's mind before a single thread is dyed.</div>
+              <div class="ap-tl-time">Day 1–2</div>
+            </div>
+          </div>
+          <div class="ap-tl-step">
+            <div class="ap-tl-dot">2</div>
+            <div class="ap-tl-content">
+              <div class="ap-tl-title">Resist Tying (Ikat Binding)</div>
+              <div class="ap-tl-desc">Threads are tied with rubber bands or cotton thread at precise intervals to create the resist pattern. This step alone takes 4–5 days of meticulous work.</div>
+              <div class="ap-tl-time">Day 3–7</div>
+            </div>
+          </div>
+          <div class="ap-tl-step">
+            <div class="ap-tl-dot">3</div>
+            <div class="ap-tl-content">
+              <div class="ap-tl-title">Natural Dyeing (3 rounds)</div>
+              <div class="ap-tl-desc">Yarn dipped in natural dyes — indigo, turmeric, madder root. Dried between rounds. Resist ties removed to reveal the pattern on the thread itself.</div>
+              <div class="ap-tl-time">Day 8–12</div>
+            </div>
+          </div>
+          <div class="ap-tl-step">
+            <div class="ap-tl-dot">4</div>
+            <div class="ap-tl-content">
+              <div class="ap-tl-title">Loom Setup &amp; Weaving</div>
+              <div class="ap-tl-desc">Pre-dyed threads are carefully mounted on the pit loom, aligning the pattern with extreme precision. Weaving begins — one row at a time, by hand.</div>
+              <div class="ap-tl-time">Day 13–17</div>
+            </div>
+          </div>
+          <div class="ap-tl-step">
+            <div class="ap-tl-dot">5</div>
+            <div class="ap-tl-content">
+              <div class="ap-tl-title">Finishing &amp; QR Tagging</div>
+              <div class="ap-tl-desc">Saree finished, borders checked, and a unique QR identity tag is attached — linking this specific piece permanently to Ravi's profile and GI certification.</div>
+              <div class="ap-tl-time">Day 18</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPACT NOTE -->
+      <div id="ap-impact-note">
+        <div id="ap-impact-icon">♻️</div>
+        <div>
+          <strong>Your purchase makes a direct impact.</strong> Buying this saree directly from Ravi means 100% of the price goes to the weaver — no middlemen, no commissions. You're sustaining an 18-day craft that has been passed down for generations in Pochampally village.
+        </div>
+      </div>
+
+    </div><!-- end ap-content -->
+  </div>
+</div>
+
+<!-- STYLES FOR PROTOTYPE SECTIONS -->
+<style>
+/* FLOW STEPS */
+.flow-steps{display:flex;align-items:flex-start;gap:0;flex-wrap:wrap;margin-bottom:48px;justify-content:center}
+.flow-step{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:24px 20px;width:200px;text-align:center;flex-shrink:0}
+.flow-step.active{background:rgba(200,137,31,.2);border-color:var(--ochre)}
+.flow-icon{font-size:2rem;margin-bottom:8px}
+.flow-num{font-family:var(--font-display);font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--ochre-light);margin-bottom:6px}
+.flow-label{font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3}
+.flow-desc{font-size:.8rem;color:rgba(245,237,216,.65);line-height:1.45}
+.flow-arrow{font-size:1.8rem;color:var(--ochre-light);padding:0 8px;margin-top:32px;align-self:center}
+
+/* DEMO CTA BOX */
+.demo-cta-box{display:flex;gap:40px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:36px 40px;flex-wrap:wrap;justify-content:center}
+.demo-left{flex:1;min-width:220px}
+.demo-label{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--cream);margin-bottom:6px}
+.demo-sublabel{font-size:.88rem;color:rgba(245,237,216,.6)}
+.demo-right{display:flex;flex-direction:column;align-items:center;gap:16px}
+.demo-saree-tag{background:#fff;color:#2A1508;border-radius:12px;padding:16px 20px;width:220px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.dst-top{display:flex;justify-content:space-between;font-size:.68rem;font-weight:700;margin-bottom:8px}
+.dst-gi{color:#2E7D32;background:#E8F5E9;padding:2px 7px;border-radius:4px}
+.dst-id{color:#666;font-size:.65rem}
+.dst-title{font-family:var(--font-display);font-size:.95rem;font-weight:700;color:#3B1F0E;margin-bottom:3px}
+.dst-weaver{font-size:.72rem;color:#6B3A22;margin-bottom:2px}
+.dst-scan{font-size:.68rem;color:#999;margin-top:6px;letter-spacing:.04em}
+.demo-btn{display:inline-block;background:linear-gradient(135deg,var(--ochre),var(--terracotta));color:#fff;font-family:var(--font-display);font-size:1rem;font-weight:700;padding:14px 28px;border-radius:30px;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(200,137,31,.4);text-decoration:none}
+.demo-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(200,137,31,.5)}
+
+/* ARTISAN PAGE OVERLAY */
+#artisan-page-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;overflow-y:auto;display:flex;justify-content:center;padding:20px}
+#artisan-page-modal{background:#fff;border-radius:16px;max-width:860px;width:100%;position:relative;overflow:hidden;color:#2A1508;font-family:"Crimson Pro",Georgia,serif;box-shadow:0 24px 80px rgba(0,0,0,.4)}
+#ap-close{position:sticky;top:0;left:0;width:100%;background:rgba(59,31,14,.95);color:#fff;border:none;padding:13px 20px;font-family:"Crimson Pro",Georgia,serif;font-size:.85rem;font-weight:700;letter-spacing:.08em;cursor:pointer;text-align:left;z-index:10;transition:background .2s}
+#ap-close:hover{background:var(--terracotta)}
+
+#ap-topbar{background:linear-gradient(135deg,#1A3A1A,#2E4A1A);color:#fff;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;font-weight:600;letter-spacing:.06em}
+#ap-gi-badge{background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px}
+#ap-topbar-right{color:rgba(255,255,255,.6)}
+
+#ap-hero{display:grid;grid-template-columns:1fr 1fr;gap:0}
+#ap-product-img{position:relative;min-height:320px;max-height:400px;overflow:hidden}
+#ap-verified-badge{position:absolute;bottom:12px;left:12px;background:rgba(46,125,50,.9);color:#fff;font-size:.75rem;font-weight:700;padding:6px 14px;border-radius:20px;letter-spacing:.04em}
+#ap-product-info{padding:28px;background:#fff}
+#ap-product-id{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#999;margin-bottom:8px}
+#ap-product-name{font-family:"Playfair Display",Georgia,serif;font-size:1.6rem;font-weight:700;color:#3B1F0E;line-height:1.2;margin-bottom:6px}
+#ap-product-sub{font-size:.82rem;color:#888;margin-bottom:18px;letter-spacing:.04em}
+#ap-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+#ap-price{font-family:"Playfair Display",Georgia,serif;font-size:2rem;font-weight:900;color:#B5482A}
+#ap-price-note{font-size:.78rem;color:#2E7D32;font-weight:600}
+#ap-craft-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px;background:#FAF3E8;border-radius:10px;padding:14px 10px}
+.aps{text-align:center}
+.aps-num{font-family:"Playfair Display",Georgia,serif;font-size:1.15rem;font-weight:900;color:#C8891F}
+.aps-label{font-size:.65rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#6B3A22;margin-top:2px}
+#ap-actions{display:flex;gap:10px;flex-wrap:wrap}
+.ap-btn-primary{background:linear-gradient(135deg,#C8891F,#B5482A);color:#fff;border:none;padding:11px 20px;border-radius:8px;font-family:"Crimson Pro",Georgia,serif;font-size:.9rem;font-weight:700;cursor:pointer;flex:1;transition:transform .2s}
+.ap-btn-primary:hover{transform:translateY(-1px)}
+.ap-btn-secondary{background:#fff;color:#3B1F0E;border:2px solid #C8891F;padding:11px 20px;border-radius:8px;font-family:"Crimson Pro",Georgia,serif;font-size:.9rem;font-weight:700;cursor:pointer;flex:1;transition:background .2s}
+.ap-btn-secondary:hover{background:#FAF3E8}
+
+#ap-artisan-section,#ap-process-section{padding:28px}
+#ap-artisan-section{background:#FAF3E8;border-top:1px solid #EAD8B4}
+#ap-process-section{background:#fff;border-top:1px solid #EAD8B4}
+.ap-section-h{font-family:"Playfair Display",Georgia,serif;font-size:1.2rem;font-weight:700;color:#3B1F0E;margin-bottom:18px}
+#ap-artisan-card{display:flex;gap:20px;align-items:flex-start}
+#ap-artisan-avatar{width:64px;height:64px;background:linear-gradient(135deg,#C8891F,#B5482A);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+#ap-artisan-name{font-family:"Playfair Display",Georgia,serif;font-size:1.1rem;font-weight:700;color:#3B1F0E;margin-bottom:2px}
+#ap-artisan-village{font-size:.78rem;color:#888;margin-bottom:10px;letter-spacing:.02em}
+#ap-artisan-bio{font-size:.92rem;color:#6B3A22;line-height:1.6;margin-bottom:12px}
+#ap-artisan-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ap-tag{background:#EAD8B4;border:1px solid #C8891F;color:#3B1F0E;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:20px}
+
+/* TIMELINE */
+#ap-timeline{display:flex;flex-direction:column;gap:0}
+.ap-tl-step{display:flex;gap:16px;align-items:flex-start;padding-bottom:20px;position:relative}
+.ap-tl-step::before{content:"";position:absolute;left:19px;top:40px;bottom:0;width:2px;background:linear-gradient(180deg,#C8891F,#EAD8B4)}
+.ap-tl-step:last-child::before{display:none}
+.ap-tl-dot{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#C8891F,#B5482A);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",Georgia,serif;font-weight:900;font-size:.9rem;flex-shrink:0;z-index:1}
+.ap-tl-title{font-family:"Playfair Display",Georgia,serif;font-size:1rem;font-weight:700;color:#3B1F0E;margin-bottom:4px}
+.ap-tl-desc{font-size:.88rem;color:#6B3A22;line-height:1.55;margin-bottom:4px}
+.ap-tl-time{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#C8891F}
+
+#ap-impact-note{background:linear-gradient(135deg,#1A4A1A,#2E6B2A);color:#fff;padding:24px 28px;display:flex;gap:16px;align-items:flex-start;font-size:.92rem;line-height:1.6}
+#ap-impact-icon{font-size:1.8rem;flex-shrink:0}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .flow-steps{flex-direction:column;align-items:center}
+  .flow-arrow{transform:rotate(90deg);margin:0}
+  #ap-hero{grid-template-columns:1fr}
+  #ap-product-img{min-height:220px}
+  #ap-craft-stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+<script>
+function openArtisanPage(){
+  document.getElementById("artisan-page-overlay").style.display="flex";
+  document.body.style.overflow="hidden";
+}
+function closeArtisanPage(){
+  document.getElementById("artisan-page-overlay").style.display="none";
+  document.body.style.overflow="";
+}
+document.getElementById("artisan-page-overlay").addEventListener("click",function(e){
+  if(e.target===this) closeArtisanPage();
+});
+
+// Generate QR code using qrcode-generator (pure JS, no external deps)
+// We use a simple SVG QR for demo — encodes a demo URL
+(function(){
+  // Simple QR code SVG generator (demo URL)
+  // Uses a pre-rendered QR pattern for "https://ikat-identity.demo/PIKAT-2025-0047"
+  // We generate a visual QR using a JS QR library inlined
+
+  function generateQR(text, size) {
+    // Minimal QR-like visual using hash of text for demo purposes
+    // In production this would use a real QR library
+    const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+    svg.setAttribute("viewBox","0 0 41 41");
+    svg.setAttribute("width", size);
+    svg.setAttribute("height", size);
+    svg.style.borderRadius = "4px";
+
+    // White background
+    const bg = document.createElementNS("http://www.w3.org/2000/svg","rect");
+    bg.setAttribute("width","41"); bg.setAttribute("height","41"); bg.setAttribute("fill","white");
+    svg.appendChild(bg);
+
+    // Finder patterns (3 corners)
+    function finder(x,y){
+      const g = document.createElementNS("http://www.w3.org/2000/svg","g");
+      const outer = document.createElementNS("http://www.w3.org/2000/svg","rect");
+      outer.setAttribute("x",x); outer.setAttribute("y",y);
+      outer.setAttribute("width","7"); outer.setAttribute("height","7"); outer.setAttribute("fill","#3B1F0E");
+      const white = document.createElementNS("http://www.w3.org/2000/svg","rect");
+      white.setAttribute("x",x+1); white.setAttribute("y",y+1);
+      white.setAttribute("width","5"); white.setAttribute("height","5"); white.setAttribute("fill","white");
+      const inner = document.createElementNS("http://www.w3.org/2000/svg","rect");
+      inner.setAttribute("x",x+2); inner.setAttribute("y",y+2);
+      inner.setAttribute("width","3"); inner.setAttribute("height","3"); inner.setAttribute("fill","#3B1F0E");
+      g.appendChild(outer); g.appendChild(white); g.appendChild(inner);
+      return g;
+    }
+    svg.appendChild(finder(1,1));
+    svg.appendChild(finder(33,1));
+    svg.appendChild(finder(1,33));
+
+    // Timing pattern
+    for(let i=8;i<33;i+=2){
+      const r1=document.createElementNS("http://www.w3.org/2000/svg","rect");
+      r1.setAttribute("x",i); r1.setAttribute("y","6"); r1.setAttribute("width","1"); r1.setAttribute("height","1"); r1.setAttribute("fill","#3B1F0E");
+      svg.appendChild(r1);
+      const r2=document.createElementNS("http://www.w3.org/2000/svg","rect");
+      r2.setAttribute("x","6"); r2.setAttribute("y",i); r2.setAttribute("width","1"); r2.setAttribute("height","1"); r2.setAttribute("fill","#3B1F0E");
+      svg.appendChild(r2);
+    }
+
+    // Data modules — deterministic from text hash
+    let hash = 0;
+    for(let i=0;i<text.length;i++) hash = ((hash<<5)-hash)+text.charCodeAt(i), hash|=0;
+    const rand = (seed) => { let s=seed; s=(s^61)^(s>>>16); s+=s<<3; s^=s>>>4; s*=0x27d4eb2d; s^=s>>>15; return (s>>>0)/0xFFFFFFFF; };
+    let s = Math.abs(hash);
+    for(let row=9;row<32;row++){
+      for(let col=9;col<32;col++){
+        if(row>=33&&col>=33) continue;
+        if(rand(s++)<0.45){
+          const r=document.createElementNS("http://www.w3.org/2000/svg","rect");
+          r.setAttribute("x",col); r.setAttribute("y",row); r.setAttribute("width","1"); r.setAttribute("height","1"); r.setAttribute("fill","#3B1F0E");
+          svg.appendChild(r);
+        }
+      }
+    }
+
+    // Ikat-colored center dot (branding)
+    const dot = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    dot.setAttribute("cx","20.5"); dot.setAttribute("cy","20.5"); dot.setAttribute("r","2.5"); dot.setAttribute("fill","#C8891F");
+    svg.appendChild(dot);
+
+    return svg;
+  }
+
+  const qr1 = generateQR("https://ikat-identity.demo/PIKAT-2025-0047", 120);
+  const qr2 = generateQR("https://ikat-identity.demo/PIKAT-2025-0047", 90);
+
+  const c1 = document.getElementById("qrcode-container");
+  const c2 = document.getElementById("qr-svg-tag");
+  if(c1) c1.appendChild(qr1);
+  if(c2) c2.appendChild(qr2);
+})();
+</script>
+
+<div class="ikat-border"></div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Idea Igniters</div>
+    <div class="footer-subtitle">Design Thinking · Mahindra University · 2025–26</div>
+    <div class="footer-team">
+      <div class="footer-member">Srikar Nandagiri</div>
+      <div class="footer-member">Prajwal Datla</div>
+      <div class="footer-member">Dhanvin Adabala</div>
+      <div class="footer-member">Rishika Mamidyala</div>
+      <div class="footer-member">Bontha Tanmayee</div>
+      <div class="footer-member">Ananya Munnangi</div>
+      <div class="footer-member">Chakrika Stotri</div>
+      <div class="footer-member">Nerusu Varshitha</div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-meta">
+      <span>Mahindra University</span> &nbsp;·&nbsp;
+      <span>School of Engineering</span> &nbsp;·&nbsp;
+      <span>Academic Year 2025–26</span>
+      <br><br>
+      Faculty Mentor: <span>Prof. Sayoni</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const navbar = document.getElementById("navbar");
+window.addEventListener("scroll", () => navbar.classList.toggle("scrolled", window.scrollY > 20));
+const toggle = document.getElementById("navToggle");
+const links  = document.getElementById("navLinks");
+toggle.addEventListener("click", () => links.classList.toggle("open"));
+links.querySelectorAll("a").forEach(a => a.addEventListener("click", () => links.classList.remove("open")));
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("visible"); }), {threshold:.1});
+document.querySelectorAll(".fade-up").forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
